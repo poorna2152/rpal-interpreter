@@ -21,8 +21,21 @@ public class LetStandardizer implements Standardizer{
         lambda.setChildren(new ArrayList<>(Arrays.asList(X,P)));
         n.setChildren(new ArrayList<>(Arrays.asList(lambda,E)));
 
-
+//        print_cond(n);
         return n;
+    }
+
+    public void print_cond(STNode node){
+        System.out.println("let printing");
+        ArrayList<STNode> children = new ArrayList<>(Arrays.asList(node));
+        while(children.size() > 0){
+            STNode current = children.get(0);
+            children.remove(0);
+            System.out.println(current);
+            System.out.println(current.getChildren());
+            children.addAll(current.getChildren());
+        }
+        System.out.println("let over");
     }
 
 }

@@ -8,6 +8,7 @@ public class StandardizedTree {
     private ArrayList<STNode> lastHeightNode = new ArrayList<>();
 
 
+
     public StandardizedTree(AST ast) {
         this.ast = ast;
     }
@@ -44,8 +45,6 @@ public class StandardizedTree {
                 newLastHeightNodes.add(updated);
             }
 
-//            System.out.println("Height over");
-//            System.out.println(newLastHeightNodes);
             lastHeightNode = newLastHeightNodes;
         }
         System.out.println("Started printing out the structure");
@@ -81,13 +80,21 @@ public class StandardizedTree {
                     standardizer = new MultiParameterStandardizer();
                     updated = standardizer.standardize(n);
                 break;
-//            case "rec":
-//                System.out.println("rec");
-//                break;
 
-//            case ",":
-//                System.out.println(",");
-//                break;
+                case "and":
+                    standardizer = new AndStandardizer();
+                    updated = standardizer.standardize(n);
+                    break;
+
+                case "rec":
+                    standardizer = new RecStandardizer();
+                    updated = standardizer.standardize(n);
+                    break;
+
+                case ",":
+                    standardizer = new CommaStandardizer();
+                    updated = standardizer.standardize(n);
+                    break;
                 case "where":
                     standardizer = new WhereStandardizer();
                     updated = standardizer.standardize(n);
@@ -124,25 +131,55 @@ public class StandardizedTree {
     }
 
     void print_structure(STNode node){
-        ArrayList<STNode> queue = new ArrayList<>(Arrays.asList(node));
-        boolean over =false;
-        int height = 0;
-        int tabCount = 0;
-        while(!over){
-            if(queue.size()>0){
-                STNode n = queue.get(0);
+        ArrayList<ArrayList<STNode>> queue = new ArrayList<>();
+        ArrayList<ArrayList<String>> printOrder = new ArrayList<>();
+        queue.add(new ArrayList<>(Arrays.asList(node)));
+        queue.add(new ArrayList<>());
+
+        int parentIndex = 0;
+        int childrenIndex = 1;
+
+        ArrayList<STNode> parentsNodes = queue.get(parentIndex);
+        ArrayList<STNode> childrenNodes = queue.get(childrenIndex);
+
+        while(parentsNodes.size() > 0){
+            ArrayList<String> nextPrintList = new ArrayList<>();
+            ArrayList<String> nextEdgeList = new ArrayList<>();
+
+            while(parentsNodes.size() > 0){
+                STNode n = parentsNodes.get(0);
                 ArrayList<STNode> children = n.getChildren();
-                queue.remove(0);
-                System.out.println(n);
-                System.out.println("├── ");
-//                next.print(buffer, childrenPrefix + "├── ", childrenPrefix + "│   ");
-                System.out.println(children);
-                for (int i = 0; i < children.size(); i++) {
-                    queue.add(children.get(i));
+                nextPrintList.add("\t");
+                nextPrintList.add(n.getLabel());
+
+                if(children.size()==2){
+                    nextEdgeList.add("\t");
+                    nextEdgeList.add("/");
+                    nextEdgeList.add("\\");
                 }
-            }else{
-                over = true;
+                else if(children.size()==0){
+                    nextEdgeList.add("\t");
+                }
+                parentsNodes.remove(0);
+                childrenNodes.addAll(children);
             }
+            parentsNodes = childrenNodes;
+            childrenNodes = new ArrayList<>();
+
+            queue.remove(childrenIndex);
+            queue.remove(parentIndex);
+
+            queue.add(parentsNodes);
+            queue.add(childrenNodes);
+
+            for (int i = 0; i < nextPrintList.size(); i++) {
+                System.out.print(nextPrintList.get(i));
+            }
+            System.out.println("");
+            for (int i = 0; i < nextEdgeList.size(); i++) {
+                System.out.print(nextEdgeList.get(i));
+            }
+            System.out.println("");
 
         }
 

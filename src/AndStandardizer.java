@@ -3,35 +3,31 @@ import java.util.Arrays;
 
 public class AndStandardizer implements  Standardizer{
 
-    //              ++n -> gamma
-    //      gamma2           child[0]
-    //aug       .nil
+    //                      =
+    //          ,                       tau
+    //++X->n->child[*][0]       ++E => n->child[*][1]
+
     @Override
     public STNode standardize(STNode n) {
 
         ArrayList<STNode> children = n.getChildren();
-        ArrayList<STNode> subStructure = new ArrayList<>();
+        STNode comma = new STNode(",");
+        STNode tau = new STNode("tau");
         STNode start = n;
+        comma.setRevisit(true);
 
-        int count = 1;
-        while(count <= children.size()){
-            STNode gamma1 = new STNode("gamma");
-            STNode gamma2 = new STNode("gamma");
-            gamma1.setChildren(new ArrayList<>(Arrays.asList(gamma2,children.get(children.size()-count))));
-            if(subStructure.size() == 0){
-                start = gamma1;
-            }
-            else{
-                STNode lastInserted = subStructure.get(subStructure.size()-1);
-                lastInserted.setChildren(new ArrayList<>(Arrays.asList(new STNode("aug"),gamma1)));
-                if(count == children.size()){
-                    gamma2.setChildren(new ArrayList<>(Arrays.asList(new STNode("aug"),new STNode("nil"))));
-                }
-            }
-            subStructure.add(gamma2);
-            count++;
+        for (int i = 0; i < children.size(); i++) {
+            STNode currentNode = children.get(i);
+            comma.addChild(currentNode.getChildren().get(0));
+            tau.addChild(currentNode.getChildren().get(1));
         }
 
+        TauStandardizer tauStandardizer = new TauStandardizer();
+        tau = tauStandardizer.standardize(tau);
+
+        start.setLabel("=");
+        start.setChildren(new ArrayList<>(Arrays.asList(comma,tau)));
+        start.setRevisit(true);
         return start;
     }
 

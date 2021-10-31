@@ -20,6 +20,7 @@ public class TauStandardizer implements  Standardizer{
             gamma1.setChildren(new ArrayList<>(Arrays.asList(gamma2,children.get(children.size()-count))));
             if(subStructure.size() == 0){
                 start = gamma1;
+                start.setAstParentIndex(n.getAstParentIndex());
             }
             else{
                 STNode lastInserted = subStructure.get(subStructure.size()-1);
@@ -31,9 +32,20 @@ public class TauStandardizer implements  Standardizer{
             subStructure.add(gamma2);
             count++;
         }
-
+//        print_cond(start);
         return start;
     }
-
+        public void print_cond(STNode node){
+            System.out.println("tau printing");
+            ArrayList<STNode> children = new ArrayList<>(Arrays.asList(node));
+            while(children.size() > 0){
+                STNode current = children.get(0);
+                children.remove(0);
+                System.out.println(current);
+                System.out.println(current.getChildren());
+                children.addAll(current.getChildren());
+            }
+            System.out.println("tau over");
+        }
 
 }

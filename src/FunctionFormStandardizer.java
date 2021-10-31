@@ -18,24 +18,45 @@ public class FunctionFormStandardizer implements  Standardizer{
         n.setLabel("=");
         STNode P = new STNode(children.get(0).getLabel());
         STNode E = children.get(children.size()-1);
-
+        System.out.println("E");
+        System.out.println(E);
+        System.out.println(children.size());
+        System.out.println(children);
         int count = 1;
-        while(count < children.size()){
+        while(count <= children.size()-1){
             STNode lambda = new STNode("lambda");
             if (subStructure.size() != 0) {
                 STNode lastInserted = subStructure.get(subStructure.size() - 1);
-                lastInserted.setChildren(new ArrayList<>(Arrays.asList(new STNode(children.get(count - 1).getLabel()), lambda)));
+                lastInserted.setChildren(new ArrayList<>(Arrays.asList(children.get(count-1), lambda)));
                 if (count == children.size() - 1) {
-                    lambda.setChildren(new ArrayList<>(Arrays.asList(new STNode(children.get(count - 1).getLabel()), E)));
+                    lastInserted.setChildren(new ArrayList<>(Arrays.asList(children.get(count-1), E)));
+                }
+                else{
+                    subStructure.add(lambda);
                 }
             }
-            subStructure.add(lambda);
+            else{
+                subStructure.add(lambda);
+            }
             count++;
         }
+
         n.setChildren(new ArrayList<>(Arrays.asList(P,subStructure.get(0))));
+        print_cond(n);
         return n;
     }
-
+    public void print_cond(STNode node){
+        System.out.println("func printing");
+        ArrayList<STNode> children = new ArrayList<>(Arrays.asList(node));
+        while(children.size() > 0){
+            STNode current = children.get(0);
+            children.remove(0);
+            System.out.println(current);
+            System.out.println(current.getChildren());
+            children.addAll(current.getChildren());
+        }
+        System.out.println("func over");
+    }
 
 }
 

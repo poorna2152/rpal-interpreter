@@ -31,7 +31,7 @@ public class MultiParameterStandardizer implements  Standardizer {
                 subStructure.add(lambda);
                 count++;
             }
-
+            subStructure.get(0).setAstParentIndex(n.getAstParentIndex());
             return subStructure.get(0);
         }
         else{

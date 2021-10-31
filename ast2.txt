@@ -24,10 +24,3 @@ let
 ...gamma
 ....<ID:sign>
 ....<INT:100>
-...gamma
-....<ID:sign>
-....neg
-.....<INT:99>
-...gamma
-....<ID:sign>
-....<STR:'abc'

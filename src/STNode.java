@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class STNode {
     private int astParentIndex;
-    private int astIndex;
     private String label;
+    private boolean revisit = false;
     private ArrayList<STNode> children = new ArrayList<>();
 
     public ArrayList<STNode> getChildren() {
@@ -20,6 +20,10 @@ public class STNode {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public void addChild(STNode node){
+        this.children.add(node);
     }
 
     public STNode(String label) {
@@ -39,10 +43,16 @@ public class STNode {
         return astParentIndex;
     }
 
+    public void setRevisit(boolean revisit) {
+        this.revisit = revisit;
+    }
+
+    public boolean isRevisit() {
+        return revisit;
+    }
+
     @Override
     public String toString() {
-        return "STNode{" +
-                "label='" + label + '\'' +
-                '}';
+        return  label;
     }
 }
