@@ -21,7 +21,6 @@ public class LambdaNode implements CSENode {
         return "LambdaNode{" +
                 "index=" + index +
                 ", boundVariable='" + boundVariables + '\'' +
-                ", env=" + env +
                 '}';
     }
 

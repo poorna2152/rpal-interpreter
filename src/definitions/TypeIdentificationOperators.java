@@ -1,31 +1,32 @@
 package definitions;
 
 public class TypeIdentificationOperators {
-    public String operate(String op, String rand1, String rand2){
-        String result = "";
+    public String operate(String op, String rand1){
+        System.out.println(op);
+        boolean result = false;
         switch (op){
             case "Isinteger":
-                result = String.valueOf(rand1.equals(rand1));
+                result = rand1.equals("INT");
                 break;
             case "Istruthvalue":
-                result = String.valueOf(!rand1.equals(rand1));
+                result = rand1.equals("TRUTH");
                 break;
             case "Isstring":
-                result = Character.toString(rand1.charAt(0));
+                result = rand1.equals("STR");
                 break;
             case "Istuple":
-                result = Character.toString(rand1.charAt(rand1.length()-1));
+                result = rand1.equals("TUP");
                 break;
             case "Isfunction":
-                result = rand1+rand2;
+                result = rand1.equals("FUNC");
                 break;
 
             case "Isdummy":
-                result = rand1+rand2;
+                result = rand1.equals("DUMMY");;
                 break;
             default:
                 System.out.println("Not an integer operator");
         }
-        return String.valueOf(result);
+        return Boolean.toString(result);
     }
 }

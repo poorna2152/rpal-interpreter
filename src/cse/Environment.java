@@ -14,6 +14,10 @@ public class Environment {
         this.names.put(key,value);
     }
 
+    public HashMap<String, CSENode> getNames() {
+        return names;
+    }
+
     public CSENode getValue(String symbol){
         return names.get(symbol);
     }

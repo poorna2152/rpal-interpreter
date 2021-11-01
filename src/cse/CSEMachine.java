@@ -19,6 +19,7 @@ public class CSEMachine {
         this.control.addAll(this.controlStructures.get(0));
         this.stack.add(e0);
         System.out.println("CSE Machine");
+        System.out.println("");
         this.evaluate();
     }
 
@@ -27,6 +28,8 @@ public class CSEMachine {
         int count =  0;
         while(control.size()  > 0 ){
             poppedValue = control.remove(control.size()-1);
+            System.out.println("New Val");
+            System.out.println(poppedValue);
             poppedValue.evaluate(this);
             System.out.println("Stack");
             System.out.println(stack);
@@ -51,6 +54,10 @@ public class CSEMachine {
 
     public void addToControl(ArrayList<CSENode> nodes){
         this.control.addAll(nodes);
+    }
+
+    public void addToControlStructure(ArrayList<ArrayList<CSENode>> nodes){
+        this.controlStructures.addAll(nodes);
     }
 
     public void setStack(ArrayList<CSENode> stack) {

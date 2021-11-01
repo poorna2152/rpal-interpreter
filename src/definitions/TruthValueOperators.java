@@ -26,4 +26,17 @@ public class TruthValueOperators {
         }
         return String.valueOf(result);
     }
+
+    public String operate(String op, String rand1){
+        boolean result = false;
+        boolean operand1 = Boolean.parseBoolean(rand1);
+        switch (op){
+            case "not":
+                result = !operand1;
+                break;
+            default:
+                System.out.println("Not an truth operator");
+        }
+        return String.valueOf(result);
+    }
 }

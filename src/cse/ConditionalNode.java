@@ -3,33 +3,45 @@ package cse;
 import java.util.ArrayList;
 
 public class ConditionalNode implements CSENode {
-    private ArrayList<CSENode> thenControls;
-    private ArrayList<CSENode> elseControls;
+    private ArrayList<ArrayList<CSENode>> thenControls;
+    private ArrayList<ArrayList<CSENode>> elseControls;
 
     public ConditionalNode() {
         this.thenControls = new ArrayList<>();
         this.elseControls = new ArrayList<>();
     }
 
-    public ArrayList<CSENode> getThenControls() {
+    public ArrayList<ArrayList<CSENode>> getThenControls() {
         return thenControls;
     }
 
-    public ArrayList<CSENode> getElseControls() {
+    public ArrayList<ArrayList<CSENode>> getElseControls() {
         return elseControls;
     }
 
-    public void setThenControls(ArrayList<CSENode> thenControls) {
+    public void setThenControls(ArrayList<ArrayList<CSENode>> thenControls) {
         this.thenControls = thenControls;
     }
 
-    public void setElseControls(ArrayList<CSENode> elseControls) {
+    public void setElseControls(ArrayList<ArrayList<CSENode>> elseControls) {
         this.elseControls = elseControls;
     }
 
     @Override
     public void evaluate(CSEMachine cseMachine) {
-        System.out.println("Conditional node");
+        SymbolNode boolResult = (SymbolNode)cseMachine.getStack().remove(0);
+        if(boolResult.getLabel() =="true"){
+            System.out.println("chose then");
+            cseMachine.addToControlStructure(thenControls);
+            cseMachine.addToControl(thenControls.get(0));
+        }
+        else{
+            System.out.println("chose else");
+            System.out.println("else structure");
+            System.out.println(elseControls);
+            cseMachine.addToControlStructure(elseControls);
+            cseMachine.addToControl(elseControls.get(0));
+        }
     }
 
     @Override

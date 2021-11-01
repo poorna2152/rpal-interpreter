@@ -20,6 +20,14 @@ public class TauNode implements CSENode {
 
     @Override
     public void evaluate(CSEMachine cseMachine) {
-        System.out.println("tau");
+        String tauVal = "<ID:STR:(";
+        for (int i = 0; i < childrenCount; i++) {
+            SymbolNode node =  (SymbolNode)cseMachine.getStack().remove(0);
+            tauVal += node.getVal(node.getLabel())+ ",";
+
+        }
+        tauVal = tauVal.substring(0,tauVal.length()-1);
+        tauVal +=")>";
+        cseMachine.getStack().add(0,new SymbolNode(tauVal));
     }
 }

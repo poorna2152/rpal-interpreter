@@ -16,7 +16,7 @@ public class EnviromentNode implements CSENode{
     @Override
     public String toString() {
         return "EnviromentNode{" +
-                "environment=" + environment +
+                "environment=" + environment.getNames() +
                 '}';
     }
 }
