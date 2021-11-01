@@ -31,14 +31,20 @@ public class PreOrderTraverser {
         while(stack.size() > 0){
             currentNode = stack.get(0);
             stack.remove(0);
+
             if(currentNode.getLabel()=="lambda"){
                 String boundVariable = currentNode.getChildren().get(0).getLabel();
-                controls.get(index).add(new LambdaNode(currentNode.getLabel(),controls.size()-1, boundVariable ));
+                controls.get(index).add(new LambdaNode(controls.size()-1, boundVariable ));
                 controls.add(new ArrayList<>());
                 traverse(currentNode.getChildren().get(1),index+1);
-            }else{
+
+            }else if(currentNode.getLabel()=="gamma"){
                 stack.addAll(0,currentNode.getChildren());
-                controls.get(index).add(new CSENode(currentNode.getLabel()));
+                controls.get(index).add(new GammaNode());
+            }
+            else{
+                stack.addAll(0,currentNode.getChildren());
+                controls.get(index).add(new SymbolNode(currentNode.getLabel()));
             }
 
         }

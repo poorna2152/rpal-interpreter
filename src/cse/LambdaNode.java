@@ -1,6 +1,6 @@
 package cse;
 
-public class LambdaNode extends CSENode {
+public class LambdaNode implements CSENode {
     private int index;
     private String boundVariable;
     private Environment env;
@@ -13,10 +13,19 @@ public class LambdaNode extends CSENode {
                 '}';
     }
 
-    public LambdaNode(String label, int index, String boundVariable) {
-        super(label);
+    public LambdaNode( int index, String boundVariable) {
         this.index = index;
         this.boundVariable = boundVariable;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    @Override
+    public void evaluate(CSEMachine cseMachine) {
+        this.setEnv(cseMachine.getCurrentEnv());
+        cseMachine.getStack().add(0,this);
     }
 
     public void setEnv(Environment env) {
@@ -25,5 +34,9 @@ public class LambdaNode extends CSENode {
 
     public Environment getEnv() {
         return env;
+    }
+
+    public String getBoundVariable() {
+        return boundVariable;
     }
 }
