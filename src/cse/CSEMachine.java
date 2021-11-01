@@ -18,16 +18,22 @@ public class CSEMachine {
         this.control.add(e0);
         this.control.addAll(this.controlStructures.get(0));
         this.stack.add(e0);
+        System.out.println("CSE Machine");
         this.evaluate();
     }
 
     public void evaluate(){
         CSENode poppedValue = null;
-        while(control.size()  > 0){
-            poppedValue = control.get(control.size()-1);
-            control.remove(control.size()-1);
+        int count =  0;
+        while(control.size()  > 0 ){
+            poppedValue = control.remove(control.size()-1);
             poppedValue.evaluate(this);
+            System.out.println("Stack");
+            System.out.println(stack);
+            System.out.println("Control");
             System.out.println(control);
+            System.out.println("");
+            count++;
         }
     }
 
@@ -68,10 +74,10 @@ public class CSEMachine {
     }
 
 
-    public String lookUp(String symbol){
+    public CSENode lookUp(String symbol){
         Environment env = currentEnv;
         boolean found = false;
-        String val = null;
+        CSENode val = null;
         while(!found && env != null){
             found = env.checkForExistence(symbol);
             if(found)

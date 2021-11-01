@@ -12,4 +12,11 @@ public class EnviromentNode implements CSENode{
         cseMachine.getStack().remove(1);
         cseMachine.setCurrentEnv(environment.getParentEnviroment());
     }
+
+    @Override
+    public String toString() {
+        return "EnviromentNode{" +
+                "environment=" + environment +
+                '}';
+    }
 }

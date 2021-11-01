@@ -24,9 +24,6 @@ public class AndStandardizer implements  Standardizer{
             tau.addChild(currentNode.getChildren().get(1));
         }
 
-        TauStandardizer tauStandardizer = new TauStandardizer();
-        tau = tauStandardizer.standardize(tau);
-
         start.setLabel("=");
         start.setChildren(new ArrayList<>(Arrays.asList(comma,tau)));
         start.setRevisit(true);

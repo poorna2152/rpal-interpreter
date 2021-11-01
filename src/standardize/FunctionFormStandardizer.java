@@ -19,10 +19,6 @@ public class FunctionFormStandardizer implements  Standardizer{
         n.setLabel("=");
         STNode P = new STNode(children.get(0).getLabel());
         STNode E = children.get(children.size()-1);
-        System.out.println("E");
-        System.out.println(E);
-        System.out.println(children.size());
-        System.out.println(children);
         int count = 1;
         while(count <= children.size()-1){
             STNode lambda = new STNode("lambda");
@@ -43,7 +39,7 @@ public class FunctionFormStandardizer implements  Standardizer{
         }
 
         n.setChildren(new ArrayList<>(Arrays.asList(P,subStructure.get(0))));
-        print_cond(n);
+//        print_cond(n);
         return n;
     }
     public void print_cond(STNode node){

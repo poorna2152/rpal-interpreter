@@ -12,6 +12,13 @@ public class SymbolNode implements CSENode {
     }
 
     @Override
+    public String toString() {
+        return "SymbolNode{" +
+                "label='" + label + '\'' +
+                '}';
+    }
+
+    @Override
     public void evaluate(CSEMachine cseMachine) {
         cseMachine.getStack().add(this);
     }

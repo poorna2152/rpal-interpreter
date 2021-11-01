@@ -3,15 +3,21 @@ package cse;
 import java.util.ArrayList;
 
 public class GammaNode implements CSENode {
+    @Override
+    public String toString() {
+        return "GammaNode";
+    }
 
     @Override
     public void evaluate(CSEMachine cseMachine) {
         if(cseMachine.getStack().get(0) instanceof LambdaNode){
             LambdaNode lambda = (LambdaNode) cseMachine.getStack().get(0);
-            SymbolNode rand = (SymbolNode)cseMachine.getStack().get(1);
-
             Environment newEnv = new Environment(cseMachine.getCurrentEnv());
-            newEnv.addName(lambda.getBoundVariable(),rand.getLabel());
+
+            for (int i = 0; i < lambda.getBoundVariable().size(); i++) {
+                CSENode rand = cseMachine.getStack().remove(1);
+                newEnv.addName(lambda.getBoundVariable().get(i),rand);
+            }
 
             cseMachine.setCurrentEnv(newEnv);
 

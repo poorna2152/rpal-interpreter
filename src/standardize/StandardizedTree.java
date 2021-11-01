@@ -47,7 +47,6 @@ public class StandardizedTree {
                 STNode updated = this.standardize(newNode);
                 newLastHeightNodes.add(updated);
             }
-
             lastHeightNode = newLastHeightNodes;
         }
         System.out.println("Started printing out the structure");
@@ -64,11 +63,6 @@ public class StandardizedTree {
                     standardizer = new LetStandardizer();
                     updated = standardizer.standardize(n);
                 break;
-
-                case "tau":
-                    standardizer = new TauStandardizer();
-                    updated = standardizer.standardize(n);
-                    break;
 
                 case "function_form":
                     standardizer = new FunctionFormStandardizer();
@@ -94,35 +88,13 @@ public class StandardizedTree {
                     standardizer = new RecStandardizer();
                     updated = standardizer.standardize(n);
                     break;
-
-                case ",":
-                    standardizer = new CommaStandardizer();
+                case "@":
+                    standardizer = new AtStandardizer();
                     updated = standardizer.standardize(n);
                     break;
+
                 case "where":
                     standardizer = new WhereStandardizer();
-                    updated = standardizer.standardize(n);
-                    break;
-
-                case "->":
-                    standardizer = new ConditionalStandardizer();
-                    updated = standardizer.standardize(n);
-                    break;
-
-                case"+":
-                case "-":
-                case "*" :
-                case "/":
-                case "ls":
-                case "ge":
-                case "<" :
-                case ">":
-                    standardizer = new OperatorStandardizer();
-                    updated = standardizer.standardize(n);
-                    break;
-                case "not":
-                case "neg":
-                    standardizer = new UnaryOperatorStandardizer();
                     updated = standardizer.standardize(n);
                     break;
 

@@ -1,25 +1,28 @@
 package cse;
 
+import java.util.ArrayList;
+
 public class LambdaNode implements CSENode {
     private int index;
-    private String boundVariable;
+    private ArrayList<String> boundVariables;
     private Environment env;
+
+    public LambdaNode( int index, ArrayList<String> boundVariable) {
+        this.index = index;
+        this.boundVariables = boundVariable;
+    }
+
+    public int getIndex() {
+        return index;
+    }
 
     @Override
     public String toString() {
         return "LambdaNode{" +
                 "index=" + index +
-                ", boundVariable='" + boundVariable + '\'' +
+                ", boundVariable='" + boundVariables + '\'' +
+                ", env=" + env +
                 '}';
-    }
-
-    public LambdaNode( int index, String boundVariable) {
-        this.index = index;
-        this.boundVariable = boundVariable;
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class LambdaNode implements CSENode {
         return env;
     }
 
-    public String getBoundVariable() {
-        return boundVariable;
+    public ArrayList<String> getBoundVariable() {
+        return boundVariables;
     }
 }
