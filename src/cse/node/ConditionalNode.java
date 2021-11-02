@@ -13,14 +13,6 @@ public class ConditionalNode implements CSENode {
         this.elseControls = new ArrayList<>();
     }
 
-    public ArrayList<ArrayList<CSENode>> getThenControls() {
-        return thenControls;
-    }
-
-    public ArrayList<ArrayList<CSENode>> getElseControls() {
-        return elseControls;
-    }
-
     public void setThenControls(ArrayList<ArrayList<CSENode>> thenControls) {
         this.thenControls = thenControls;
     }
@@ -31,17 +23,12 @@ public class ConditionalNode implements CSENode {
 
     @Override
     public void evaluate(CSEMachine cseMachine) {
-        SymbolNode boolResult = (SymbolNode)cseMachine.getStack().remove(0);
-        System.out.println("bool"+boolResult);
-        if(boolResult.getLabel().equals("true")){
-            System.out.println("chose then");
+        BooleanNode boolResult = (BooleanNode) cseMachine.getStack().remove(0);
+        if(boolResult.getValue()){
             cseMachine.addToControlStructure(thenControls);
             cseMachine.addToControl(thenControls.get(0));
         }
         else{
-            System.out.println("chose else");
-            System.out.println("else structure");
-            System.out.println(elseControls);
             cseMachine.addToControlStructure(elseControls);
             cseMachine.addToControl(elseControls.get(0));
         }

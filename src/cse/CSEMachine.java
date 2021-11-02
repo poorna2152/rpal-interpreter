@@ -41,6 +41,7 @@ public class CSEMachine {
             System.out.println("");
             count++;
         }
+        System.out.println(stack.remove(0));
     }
 
     public void setCurrentEnv(Environment currentEnv) {

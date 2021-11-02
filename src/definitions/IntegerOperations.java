@@ -1,48 +1,70 @@
 package definitions;
 
-public class IntegerOperations {
-    public String operate(String op, String rand1, String rand2){
+import cse.CSEMachine;
+import cse.node.BooleanNode;
+import cse.node.IntegerNode;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class IntegerOperations extends OperationType {
+    private final ArrayList<String> binaryOperations = new ArrayList<>(Arrays.asList("+", "-", "*", "/", "**"));
+    private final ArrayList<String> binaryComparisonOperations = new ArrayList<>(Arrays.asList("eq", "ne", "ls", "<", "gr", ">", "le", "<=", "ge", ">="));
+    private final ArrayList<String> unaryOperations = new ArrayList<>(Arrays.asList("neg"));
+
+    @Override
+    public void handleOperation(String operation,CSEMachine cseMachine) {
+        if(binaryOperations.contains(operation) || binaryComparisonOperations.contains(operation)){
+            if(cseMachine.getStack().get(0) instanceof IntegerNode && cseMachine.getStack().get(1) instanceof IntegerNode){
+                IntegerNode rand1 = (IntegerNode)cseMachine.getStack().remove(0);
+                IntegerNode rand2 = (IntegerNode)cseMachine.getStack().remove(0);
+                if(binaryOperations.contains(operation)){
+                    int result = this.operateInt(operation,rand1.getValue(),rand2.getValue());
+                    cseMachine.getStack().add(0,new IntegerNode(result));
+                }else{
+                    boolean result = this.operateBool(operation,rand1.getValue(),rand2.getValue());
+                    cseMachine.getStack().add(0,new BooleanNode(result));
+                }
+            }
+        }
+        else if(unaryOperations.contains(operation)) {
+            if (cseMachine.getStack().get(0) instanceof IntegerNode) {
+                IntegerNode rand1 = (IntegerNode) cseMachine.getStack().remove(0);
+                int result = this.operateInt(operation, rand1.getValue());
+                cseMachine.getStack().add(0,new IntegerNode(result));
+            }
+        }
+        else{
+                super.handleOperation(operation,cseMachine);
+            }
+    }
+
+    public int operateInt(String op, int rand1, int rand2){
         int result = 0;
-        int operand1 = Integer.parseInt(rand1);
-        int operand2 = Integer.parseInt(rand2);
         switch (op){
             case "+":
-                result = operand1 + operand2;
+                result = rand1 + rand2;
                 break;
             case "-":
-                result = operand1 - operand2;
+                result = rand1 - rand2;
                 break;
             case "*":
-                result = operand1 * operand2;
+                result = rand1 * rand2;
                 break;
             case "/":
-                result = operand1/operand2;
-                break;
-            case "**":
-                result = (int)Math.pow(operand1,operand2);
-                break;
-            case "ls":
-                boolean resultB = operand1 < operand2;
-                if(resultB == true){
-                    result =1;
-                }
-                break;
-            case "ge":
-                resultB = operand1 >= operand2;
-                if(resultB == true){
-                    result =1;
-                }
-                System.out.println("ge op ");
-                System.out.println(String.valueOf(result));
+                result = rand1/rand2;
                 break;
             default:
                 System.out.println("Not an integer operator");
                 break;
+            case "**":
+                result = (int)Math.pow(rand1,rand2);
+                break;
         }
-        return String.valueOf(result);
+        return result;
     }
-    public String operate(String op, String rand1){
-        int result = Integer.parseInt(rand1);
+    public int operateInt(String op, int rand1){
+        int result = rand1;
         switch (op){
             case "neg":
                 if(result > 0){
@@ -54,6 +76,39 @@ public class IntegerOperations {
                 System.out.println("Not an integer operator");
                 break;
         }
-        return "<INT:"+String.valueOf(result)+">";
+        return result;
     }
+
+    public boolean operateBool(String op, int rand1, int rand2){
+        boolean result = false;
+        switch (op){
+            case "ls":
+            case "<":
+                result = rand1 < rand2;
+                break;
+            case "le":
+            case "<=":
+                result = rand1 <= rand2;
+                break;
+            case "gr":
+            case ">":
+                result = rand1 > rand2;
+                break;
+            case "ge":
+            case ">=":
+                result = rand1 >= rand2;
+                break;
+            case "eq":
+                result = rand1 == rand2;
+                break;
+            case "ne":
+                result = rand1 != rand2;
+                break;
+            default:
+                System.out.println("Not an integer operator");
+                break;
+        }
+        return result;
+    }
+
 }

@@ -1,15 +1,24 @@
 package cse.sttraverser.handler;
 
 import cse.node.CSENode;
+import cse.node.SymbolNode;
+import cse.node.YStarNode;
 import cse.sttraverser.PreOrderTraverser;
 import standardize.STNode;
 
-public abstract class Handler {
-    private String type;
-    private Handler nextHandler;
+import java.util.ArrayList;
 
-    public void handle(STNode node, PreOrderTraverser traverser, int index){
-        this.nextHandler.handle(node,traverser,index);
+public abstract class Handler {
+    private Handler nextHandler = null;
+
+    public void handle(STNode node, PreOrderTraverser traverser,  ArrayList<STNode> stack,int index){
+        if(this.nextHandler !=null){
+            this.nextHandler.handle(node,traverser,stack,index);
+        }
+        else{
+            stack.addAll(0,node.getChildren());
+            traverser.addToControl(index, new SymbolNode(node.getLabel()));
+        }
     }
 
     public void setNextHandler(Handler nextHandler) {

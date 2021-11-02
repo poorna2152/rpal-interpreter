@@ -1,45 +1,72 @@
 package definitions;
 
-public class TruthValueOperators {
-    public String operate(String op, String rand1, String rand2){
-        boolean result = false;
-        boolean operand1 = Boolean.parseBoolean(rand1);
-        boolean operand2 = Boolean.parseBoolean(rand2);
-        System.out.println("case and");
-        System.out.println(operand1);
-        System.out.println(operand2);
-        switch (op){
-            case "or":
-                result = operand1 || operand2;
-                break;
-            case "&":
-                result = operand1 && operand2;
-                break;
-            case "not":
-                result = !operand1;
-                break;
-            case "eq":
-                result = operand1 == operand2;
-                break;
-            case "ne":
-                result = operand1 != operand2;
-                break;
-            default:
-                System.out.println("Not an truth operator");
+import cse.CSEMachine;
+import cse.node.BooleanNode;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class TruthValueOperators extends OperationType{
+    private final ArrayList<String> binaryOperations = new ArrayList<>(Arrays.asList("or", "&", "eq", "ne"));
+    private final ArrayList<String> unaryOperations = new ArrayList<>(Arrays.asList("not"));
+
+    @Override
+    public void handleOperation(String operation, CSEMachine cseMachine) {
+        if(binaryOperations.contains(operation)){
+            if(cseMachine.getStack().get(0) instanceof BooleanNode && cseMachine.getStack().get(1) instanceof BooleanNode){
+                BooleanNode rand1 = (BooleanNode)cseMachine.getStack().remove(0);
+                BooleanNode rand2 = (BooleanNode)cseMachine.getStack().remove(0);
+                boolean result = this.operate(operation,rand1.getValue(),rand2.getValue());
+                cseMachine.getStack().add(0,new BooleanNode(result));
+            }
         }
-        return String.valueOf(result);
+        else if(unaryOperations.contains(operation)) {
+            if (cseMachine.getStack().get(0) instanceof BooleanNode) {
+                BooleanNode rand1 = (BooleanNode) cseMachine.getStack().remove(0);
+                boolean result = this.operate(operation, rand1.getValue());
+                cseMachine.getStack().add(0,new BooleanNode(result));
+            }
+        }
+        else{
+            super.handleOperation(operation,cseMachine);
+        }
     }
 
-    public String operate(String op, String rand1){
+
+
+    public boolean operate(String op, boolean rand1, boolean rand2){
         boolean result = false;
-        boolean operand1 = Boolean.parseBoolean(rand1);
         switch (op){
+            case "or":
+                result = rand1 || rand2;
+                break;
+            case "&":
+                result = rand1 && rand2;
+                break;
             case "not":
-                result = !operand1;
+                result = !rand1;
+                break;
+            case "eq":
+                result = rand1 == rand2;
+                break;
+            case "ne":
+                result = rand1 != rand2;
                 break;
             default:
                 System.out.println("Not an truth operator");
         }
-        return String.valueOf(result);
+        return result;
+    }
+
+    public boolean operate(String op, boolean rand1){
+        boolean result = false;
+        switch (op){
+            case "not":
+                result = !rand1;
+                break;
+            default:
+                System.out.println("Not an truth operator");
+        }
+        return result;
     }
 }

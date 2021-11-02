@@ -30,8 +30,7 @@ public class EtaNode implements CSENode{
 
     @Override
     public void evaluate(CSEMachine cseMachine) {
-        this.setEnv(cseMachine.getCurrentEnv());
-        cseMachine.getStack().add(0,this);
+        System.out.println("Invalid eta node found in control");
     }
 
     public void setEnv(Environment env) {

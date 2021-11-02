@@ -1,20 +1,21 @@
 package cse.sttraverser;
 
 import cse.node.*;
+import cse.sttraverser.handler.Handler;
 import standardize.STNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PreOrderTraverser {
-
-
     private ArrayList<ArrayList<CSENode>> controls;
     private STNode root;
     private int nextIndex = 0;
+    private Handler handlers;
 
     public PreOrderTraverser(STNode node) {
         this.root = node;
+        this.handlers = new HandlerBuilder().buildTraverserHandler();
         this.controls = new ArrayList<>();
         this.controls.add(new ArrayList<>());
     }
@@ -24,7 +25,6 @@ public class PreOrderTraverser {
         for (int i = 0; i < controls.size(); i++) {
             System.out.println(controls.get(i));
         }
-
         return controls;
 
     }
@@ -33,16 +33,9 @@ public class PreOrderTraverser {
         return controls;
     }
 
-    public STNode getRoot() {
-        return root;
-    }
 
-    public void setControls(ArrayList<ArrayList<CSENode>> controls) {
-        this.controls = controls;
-    }
-
-    public void setRoot(STNode root) {
-        this.root = root;
+    public void addToControl(int index,CSENode node){
+        this.controls.get(index).add(node);
     }
 
     public void setNextIndex(int nextIndex) {
@@ -58,75 +51,9 @@ public class PreOrderTraverser {
         STNode currentNode = null;
 
         while(stack.size() > 0){
-            currentNode = stack.get(0);
-            stack.remove(0);
-
-            if(currentNode.getLabel().equals("lambda")){
-                ArrayList<String> boundVariable = new ArrayList<>();
-                if(currentNode.getChildren().get(0).getLabel().equals(",")){
-                    ArrayList<STNode> children = currentNode.getChildren().get(0).getChildren();
-                    for (int i = 0; i < children.size(); i++) {
-                        boundVariable.add(children.get(i).getLabel());
-                    }
-                }
-                else{
-                    boundVariable.add(currentNode.getChildren().get(0).getLabel());
-                }
-                nextIndex++;
-                controls.get(index).add(new LambdaNode(nextIndex, boundVariable));
-                controls.add(new ArrayList<>());
-                traverse(currentNode.getChildren().get(1),nextIndex);
-
-            }
-            else if(currentNode.getLabel().equals("->")){
-                ConditionalNode conditionalNode = new ConditionalNode();
-                int copyNextIndex = nextIndex;
-
-                controls.add(new ArrayList<>());
-                nextIndex++;
-                traverse(currentNode.getChildren().get(1),nextIndex);
-                ArrayList<ArrayList<CSENode>> thenControls = new ArrayList<>();
-                for (int i = nextIndex; i < controls.size() ; i++) {
-                    thenControls.add(controls.get(i));
-                }
-                controls.subList(copyNextIndex+1,controls.size()).clear();
-
-                nextIndex = copyNextIndex;
-
-                controls.add(new ArrayList<>());
-                nextIndex++;
-
-                traverse(currentNode.getChildren().get(2),nextIndex);
-                ArrayList<ArrayList<CSENode>> elseControls = new ArrayList<>();
-                for (int i = nextIndex; i < controls.size() ; i++) {
-                    elseControls.add(controls.get(i));
-                }
-                controls.subList(copyNextIndex+1,controls.size()).clear();
-
-                nextIndex = copyNextIndex;
-
-                conditionalNode.setThenControls(thenControls);
-                conditionalNode.setElseControls(elseControls);
-
-                controls.get(index).add(conditionalNode);
-                stack.add(0,currentNode.getChildren().get(0));
-            }
-            else if(currentNode.getLabel().equals("tau")){
-                controls.get(index).add(new TauNode(currentNode.getChildren().size()));
-                stack.addAll(0,currentNode.getChildren());
-            }
-            else if(currentNode.getLabel().equals("Ystar")){
-                controls.get(index).add(new YStarNode());
-            }
-            else if(currentNode.getLabel().equals("gamma")){
-                stack.addAll(0,currentNode.getChildren());
-                controls.get(index).add(new GammaNode());
-            }
-            else{
-                stack.addAll(0,currentNode.getChildren());
-                controls.get(index).add(new SymbolNode(currentNode.getLabel()));
-            }
-
+            currentNode = stack.remove(0);
+            System.out.println(currentNode);
+            this.handlers.handle(currentNode,this,stack,index);
         }
 
     }

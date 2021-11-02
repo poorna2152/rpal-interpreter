@@ -13,7 +13,7 @@ public class EnviromentNode implements CSENode{
     @Override
     public void evaluate(CSEMachine cseMachine) {
         cseMachine.getStack().remove(1);
-        cseMachine.setCurrentEnv(environment.getParentEnviroment());
+        cseMachine.setCurrentEnv(this.environment.getParentEnviroment());
     }
 
     @Override

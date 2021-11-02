@@ -16,9 +16,6 @@ public class TauNode implements CSENode {
                 '}';
     }
 
-    public int getChildrenCount() {
-        return childrenCount;
-    }
 
     public TauNode(int childrenCount) {
         this.childrenCount = childrenCount;
@@ -27,7 +24,7 @@ public class TauNode implements CSENode {
     @Override
     public void evaluate(CSEMachine cseMachine) {
         for (int i = 0; i < childrenCount; i++) {
-            SymbolNode node =  (SymbolNode)cseMachine.getStack().remove(0);
+            CSENode node =  cseMachine.getStack().remove(0);
             children.add(node);
         }
         cseMachine.getStack().add(0,this);

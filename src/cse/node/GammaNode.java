@@ -2,6 +2,7 @@ package cse.node;
 
 import cse.CSEMachine;
 import cse.Environment;
+import definitions.OperationHandler;
 import definitions.TypeIdentificationOperators;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class GammaNode implements CSENode {
         if(cseMachine.getStack().get(0) instanceof LambdaNode){
             LambdaNode lambda = (LambdaNode) cseMachine.getStack().remove(0);
             Environment newEnv = new Environment(cseMachine.getCurrentEnv());
+
             if(cseMachine.getStack().get(0) instanceof TauNode){
                 TauNode tauNode = (TauNode) cseMachine.getStack().remove(0);
                 ArrayList<CSENode> children = tauNode.getChildren();
@@ -35,7 +37,6 @@ public class GammaNode implements CSENode {
 
             EnviromentNode envNode = new EnviromentNode(newEnv);
 
-
             cseMachine.getStack().add(0,envNode);
 
             ArrayList<CSENode> nextControlStructure = cseMachine.getControlStructures().get(lambda.getIndex());
@@ -43,61 +44,40 @@ public class GammaNode implements CSENode {
             cseMachine.addToControl(nextControlStructure);
 
         }
-        else if(cseMachine.getStack().get(0) instanceof YStarNode){
-            System.out.println("In Ystar gamma");
-            if(cseMachine.getStack().get(1) instanceof LambdaNode){
 
+        //checked
+        else if(cseMachine.getStack().get(0) instanceof YStarNode){
+            if(cseMachine.getStack().get(1) instanceof LambdaNode){
                 cseMachine.getStack().remove(0);
                 LambdaNode lambda = (LambdaNode)cseMachine.getStack().remove(0);
                 cseMachine.getStack().add(0,new EtaNode(lambda.getIndex(),lambda.getBoundVariable(), lambda.getEnv()));
             }
         }
+
+        //
         else if(cseMachine.getStack().get(0) instanceof TauNode){
             TauNode node = (TauNode)cseMachine.getStack().remove(0);
-            SymbolNode indexNode = (SymbolNode)cseMachine.getStack().remove(0);
-            int index = Integer.parseInt(indexNode.getVal(indexNode.getLabel()));
-            cseMachine.getStack().add(node.getChildren().get(index-1));
+            IntegerNode indexNode = (IntegerNode)cseMachine.getStack().remove(0);
+            cseMachine.getStack().add(node.getChildren().get(indexNode.getValue()-1));
         }
+        //checked
         else if(cseMachine.getStack().get(0) instanceof EtaNode){
                 EtaNode etaNode = (EtaNode)cseMachine.getStack().get(0);
                 cseMachine.addToControl(new GammaNode());
                 cseMachine.addToControl(new GammaNode());
                 cseMachine.getStack().add(0,new LambdaNode(etaNode.getIndex(),etaNode.getBoundVariable(), etaNode.getEnv()));
         }
-        else{
-            SymbolNode rator = (SymbolNode)cseMachine.getStack().remove(0);
-            String ratorLabel = rator.getLabel();
-            switch (ratorLabel){
-                case "<ID:Isinteger>":
-                case "<ID:Istruthvalue>":
-                case "<ID:Isstring>":
-                case "<ID:Istuple>":
-                case "<ID:Isfunction>":
-                    SymbolNode rand1 = (SymbolNode)cseMachine.getStack().remove(0);
-                    String rand1Label = this.getType(rand1.getLabel());
-                    TypeIdentificationOperators typeOp = new TypeIdentificationOperators();
-                    String result = typeOp.operate(this.getVal(ratorLabel),rand1Label);
-                    cseMachine.getStack().add(0,new SymbolNode(result));
-                    break;
-                case "<ID:Print>":
-                    CSENode node1 = cseMachine.getStack().remove(0);
-                    cseMachine.getStack().add(0,node1);
-                    System.out.println(node1);
-                default:
-                    System.out.println("ID not found");
-            }
 
+        //checked -double check again
+        else if (cseMachine.getStack().get(0) instanceof IdentifierNode){
+            IdentifierNode node = (IdentifierNode)cseMachine.getStack().get(0);
+            OperationHandler.getInstance().operateDefined(node.getLabel(),cseMachine);
+        }
+
+        else{
+            System.out.println("Invalid node");
+            System.out.println(cseMachine.getStack().get(0));
         }
     }
 
-    public String getVal(String label){
-        int index = label.indexOf(":");
-        return label.substring(index+1,label.length()-1);
-    }
-    public String getType(String label){
-        System.out.println("get type");
-        System.out.println(label);
-        int index = label.indexOf(":");
-        return label.substring(1,index);
-    }
 }
