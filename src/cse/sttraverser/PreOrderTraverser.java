@@ -52,7 +52,6 @@ public class PreOrderTraverser {
 
         while(stack.size() > 0){
             currentNode = stack.remove(0);
-            System.out.println(currentNode);
             this.handlers.handle(currentNode,this,stack,index);
         }
 

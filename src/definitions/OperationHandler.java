@@ -26,10 +26,13 @@ public class OperationHandler {
         IntegerOperations integerOperations = new IntegerOperations();
         StringOperators stringOperators = new StringOperators();
         TruthValueOperators truthValueOperators = new TruthValueOperators();
+        TupleOperations tupleOperations = new TupleOperations();
 
         integerOperations.setNextType(stringOperators);
         stringOperators.setNextType(truthValueOperators);
+        truthValueOperators.setNextType(tupleOperations);
         this.symbolOperations = integerOperations;
+
     }
 
     public void initializeIdentifierOperators(){

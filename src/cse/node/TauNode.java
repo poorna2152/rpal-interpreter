@@ -6,13 +6,11 @@ import java.util.ArrayList;
 
 public class TauNode implements CSENode {
     private int childrenCount;
-    private ArrayList<CSENode> children = new ArrayList<>();
 
     @Override
     public String toString() {
         return "TauNode{" +
                 "childrenCount=" + childrenCount +
-                ", children=" + children +
                 '}';
     }
 
@@ -23,14 +21,12 @@ public class TauNode implements CSENode {
 
     @Override
     public void evaluate(CSEMachine cseMachine) {
+        ArrayList<CSENode> children = new ArrayList<>();
         for (int i = 0; i < childrenCount; i++) {
             CSENode node =  cseMachine.getStack().remove(0);
             children.add(node);
         }
-        cseMachine.getStack().add(0,this);
+        cseMachine.getStack().add(0,new TupleNode(children));
     }
 
-    public ArrayList<CSENode> getChildren() {
-        return children;
-    }
 }

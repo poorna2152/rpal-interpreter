@@ -19,12 +19,18 @@ public class GammaNode implements CSENode {
             LambdaNode lambda = (LambdaNode) cseMachine.getStack().remove(0);
             Environment newEnv = new Environment(cseMachine.getCurrentEnv());
 
-            if(cseMachine.getStack().get(0) instanceof TauNode){
-                TauNode tauNode = (TauNode) cseMachine.getStack().remove(0);
-                ArrayList<CSENode> children = tauNode.getChildren();
-                for (int i = 0; i < lambda.getBoundVariable().size(); i++) {
-                    newEnv.addName(lambda.getBoundVariable().get(i), children.get(i));
+            if(cseMachine.getStack().get(0) instanceof TupleNode){
+                TupleNode tuple = (TupleNode) cseMachine.getStack().remove(0);
+                if(lambda.getBoundVariable().size() ==1){
+                    newEnv.addName(lambda.getBoundVariable().get(0),tuple);
                 }
+               else{
+                    ArrayList<CSENode> children = tuple.getChildren();
+                    for (int i = 0; i < lambda.getBoundVariable().size(); i++) {
+                        newEnv.addName(lambda.getBoundVariable().get(i), children.get(i));
+                    }
+                }
+
             }
             else {
                 for (int i = 0; i < lambda.getBoundVariable().size(); i++) {
@@ -55,8 +61,8 @@ public class GammaNode implements CSENode {
         }
 
         //
-        else if(cseMachine.getStack().get(0) instanceof TauNode){
-            TauNode node = (TauNode)cseMachine.getStack().remove(0);
+        else if(cseMachine.getStack().get(0) instanceof TupleNode){
+            TupleNode node = (TupleNode) cseMachine.getStack().remove(0);
             IntegerNode indexNode = (IntegerNode)cseMachine.getStack().remove(0);
             cseMachine.getStack().add(node.getChildren().get(indexNode.getValue()-1));
         }

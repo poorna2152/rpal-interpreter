@@ -31,9 +31,10 @@ public class LambdaHandler extends Handler{
             }
 
             traverser.setNextIndex(traverser.getNextIndex()+1);
-            traverser.addToControl(index,new LambdaNode(traverser.getNextIndex(), boundVariable));
             traverser.getControls().add(new ArrayList<>());
+            traverser.addToControl(index,new LambdaNode(traverser.getNextIndex(), boundVariable));
             traverser.traverse(node.getChildren().get(1),traverser.getNextIndex());
+
         }
         else{
             super.handle(node, traverser, stack,index);

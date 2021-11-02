@@ -14,6 +14,7 @@ public class HandlerBuilder {
         IntegerHandler integerHandler = new IntegerHandler();
         TauHandler tauHandler = new TauHandler();
         YStarHandler yStarHandler = new YStarHandler();
+        BooleanHandler booleanHandler = new BooleanHandler();
 
         conditionalHandler.setNextHandler(gammaHandler);
         gammaHandler.setNextHandler(lambdaHandler);
@@ -22,6 +23,7 @@ public class HandlerBuilder {
         stringHandler.setNextHandler(integerHandler);
         integerHandler.setNextHandler(tauHandler);
         tauHandler.setNextHandler(yStarHandler);
+        yStarHandler.setNextHandler(booleanHandler);
 
 
 

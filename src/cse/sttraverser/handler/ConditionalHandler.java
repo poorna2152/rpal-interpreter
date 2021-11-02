@@ -30,6 +30,8 @@ public class ConditionalHandler extends Handler {
             }
 
 
+            traverser.setNextIndex(copyNextIndex+1);;
+
             nextIndex = copyNextIndex;
             traverser.setNextIndex(nextIndex+1);;
 
@@ -45,6 +47,7 @@ public class ConditionalHandler extends Handler {
             conditionalNode.setThenControls(thenControls);
             conditionalNode.setElseControls(elseControls);
 
+            traverser.setNextIndex(copyNextIndex);;
             traverser.addToControl(index,conditionalNode);
             stack.add(0,node.getChildren().get(0));
         }

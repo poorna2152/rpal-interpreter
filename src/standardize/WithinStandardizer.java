@@ -29,7 +29,8 @@ public class WithinStandardizer implements  Standardizer{
 
         lambda.setChildren(new ArrayList<>(Arrays.asList(X1,E2)));
         gamma.setChildren(new ArrayList<>(Arrays.asList(lambda,E1)));
-        gamma.setChildren(new ArrayList<>(Arrays.asList(X2,gamma)));
+        n.setChildren(new ArrayList<>(Arrays.asList(X2,gamma)));
+
 
         return n;
     }
