@@ -1,11 +1,14 @@
-package cse;
+package cse.sttraverser;
 
+import cse.node.*;
 import standardize.STNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PreOrderTraverser {
+
+
     private ArrayList<ArrayList<CSENode>> controls;
     private STNode root;
     private int nextIndex = 0;
@@ -24,6 +27,30 @@ public class PreOrderTraverser {
 
         return controls;
 
+    }
+
+    public ArrayList<ArrayList<CSENode>> getControls() {
+        return controls;
+    }
+
+    public STNode getRoot() {
+        return root;
+    }
+
+    public void setControls(ArrayList<ArrayList<CSENode>> controls) {
+        this.controls = controls;
+    }
+
+    public void setRoot(STNode root) {
+        this.root = root;
+    }
+
+    public void setNextIndex(int nextIndex) {
+        this.nextIndex = nextIndex;
+    }
+
+    public int getNextIndex() {
+        return nextIndex;
     }
 
     public void traverse(STNode node,int index){
@@ -87,6 +114,9 @@ public class PreOrderTraverser {
             else if(currentNode.getLabel().equals("tau")){
                 controls.get(index).add(new TauNode(currentNode.getChildren().size()));
                 stack.addAll(0,currentNode.getChildren());
+            }
+            else if(currentNode.getLabel().equals("Ystar")){
+                controls.get(index).add(new YStarNode());
             }
             else if(currentNode.getLabel().equals("gamma")){
                 stack.addAll(0,currentNode.getChildren());

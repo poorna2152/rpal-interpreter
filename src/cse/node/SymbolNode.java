@@ -1,9 +1,9 @@
-package cse;
+package cse.node;
 
+import cse.CSEMachine;
 import definitions.IntegerOperations;
 import definitions.StringOperators;
 import definitions.TruthValueOperators;
-import definitions.TypeIdentificationOperators;
 
 public class SymbolNode implements CSENode {
     private String label;
@@ -37,14 +37,16 @@ public class SymbolNode implements CSENode {
                 SymbolNode rand2 = (SymbolNode)cseMachine.getStack().remove(0);
                 String rand1Val = this.getVal(rand1.getLabel());
                 String rand2Val = this.getVal(rand2.getLabel());
-                String result = mathop.operate(this.getVal(this.label),rand1Val,rand2Val);
+                String result = mathop.operate(this.label,rand1Val,rand2Val);
+                result = "<INT:"+result+">";
                 cseMachine.getStack().add(0,new SymbolNode(result));
                 break;
             case "neg":
                 mathop = new IntegerOperations();
                 rand1 = (SymbolNode)cseMachine.getStack().remove(0);
                 rand1Val = this.getVal(rand1.getLabel());
-                result = mathop.operate(this.getVal(this.label),rand1Val);
+                result = mathop.operate(this.label,rand1Val);
+                result = "<INT:"+result+">";
                 cseMachine.getStack().add(0,new SymbolNode(result));
                 break;
             case "eq":
@@ -55,7 +57,7 @@ public class SymbolNode implements CSENode {
                 rand2 = (SymbolNode)cseMachine.getStack().remove(0);
                 rand1Val = this.getVal(rand1.getLabel());
                 rand2Val = this.getVal(rand2.getLabel());
-                result = stringop.operate(this.getVal(this.label),rand1Val,rand2Val);
+                result = stringop.operate(this.label,rand1Val,rand2Val);
                 cseMachine.getStack().add(0,new SymbolNode(result));
                 break;
 
@@ -72,23 +74,28 @@ public class SymbolNode implements CSENode {
                 TruthValueOperators truthop = new TruthValueOperators();
                 rand1 = (SymbolNode)cseMachine.getStack().remove(0);
                 rand2 = (SymbolNode)cseMachine.getStack().remove(0);
-                rand1Val = this.getVal(rand1.getLabel());
-                rand2Val = this.getVal(rand2.getLabel());
-                result = truthop.operate(this.getVal(this.label),rand1Val,rand2Val);
+                result = truthop.operate(this.label,rand1.getLabel(),rand2.getLabel());
                 cseMachine.getStack().add(0,new SymbolNode(result));
                 break;
             case "ls":
-                truthop = new TruthValueOperators();
+            case "ge":
+                System.out.println("in case ge");
+                mathop = new IntegerOperations();
                 rand1 = (SymbolNode)cseMachine.getStack().remove(0);
                 rand2 = (SymbolNode)cseMachine.getStack().remove(0);
                 rand1Val = this.getVal(rand1.getLabel());
                 rand2Val = this.getVal(rand2.getLabel());
-                result = truthop.operate(this.getVal(this.label),rand1Val,rand2Val);
+                System.out.println(rand1Val);
+                System.out.println(rand2Val);
+                result = mathop.operate(this.label,rand1Val,rand2Val);
+                System.out.println(result);
                 String resultToBool = "true";
                 if(result.equals("0")){
+                    System.out.println("in");
                     resultToBool = "false";
                 }
                 cseMachine.getStack().add(0,new SymbolNode(resultToBool));
+                break;
             case "not":
                 truthop = new TruthValueOperators();
                 rand1 = (SymbolNode)cseMachine.getStack().remove(0);

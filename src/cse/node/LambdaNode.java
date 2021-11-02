@@ -1,4 +1,7 @@
-package cse;
+package cse.node;
+
+import cse.CSEMachine;
+import cse.Environment;
 
 import java.util.ArrayList;
 
@@ -7,7 +10,13 @@ public class LambdaNode implements CSENode {
     private ArrayList<String> boundVariables;
     private Environment env;
 
-    public LambdaNode( int index, ArrayList<String> boundVariable) {
+    public LambdaNode(int index, ArrayList<String> boundVariables, Environment env) {
+        this.index = index;
+        this.boundVariables = boundVariables;
+        this.env = env;
+    }
+
+    public LambdaNode(int index, ArrayList<String> boundVariable) {
         this.index = index;
         this.boundVariables = boundVariable;
     }

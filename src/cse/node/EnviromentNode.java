@@ -1,4 +1,7 @@
-package cse;
+package cse.node;
+
+import cse.CSEMachine;
+import cse.Environment;
 
 public class EnviromentNode implements CSENode{
     Environment environment;

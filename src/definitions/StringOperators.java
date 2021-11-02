@@ -6,10 +6,10 @@ public class StringOperators {
 
         switch (op){
             case "eq":
-                result = String.valueOf(rand1.equals(rand1));
+                result = String.valueOf(rand1.equals(rand2));
                 break;
             case "ne":
-                result = String.valueOf(!rand1.equals(rand1));
+                result = String.valueOf(!rand1.equals(rand2));
                 break;
             case "Conc":
                 result = rand1+rand2;

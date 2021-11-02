@@ -1,5 +1,8 @@
 package cse;
 
+import cse.node.CSENode;
+import cse.node.EnviromentNode;
+import cse.sttraverser.PreOrderTraverser;
 import standardize.STNode;
 
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ public class CSEMachine {
     public void evaluate(){
         CSENode poppedValue = null;
         int count =  0;
-        while(control.size()  > 0 ){
+        while(control.size()  > 0){
             poppedValue = control.remove(control.size()-1);
             System.out.println("New Val");
             System.out.println(poppedValue);

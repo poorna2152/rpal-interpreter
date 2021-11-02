@@ -5,6 +5,9 @@ public class TruthValueOperators {
         boolean result = false;
         boolean operand1 = Boolean.parseBoolean(rand1);
         boolean operand2 = Boolean.parseBoolean(rand2);
+        System.out.println("case and");
+        System.out.println(operand1);
+        System.out.println(operand2);
         switch (op){
             case "or":
                 result = operand1 || operand2;

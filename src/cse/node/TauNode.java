@@ -1,12 +1,18 @@
-package cse;
+package cse.node;
+
+import cse.CSEMachine;
+
+import java.util.ArrayList;
 
 public class TauNode implements CSENode {
     private int childrenCount;
+    private ArrayList<CSENode> children = new ArrayList<>();
 
     @Override
     public String toString() {
         return "TauNode{" +
                 "childrenCount=" + childrenCount +
+                ", children=" + children +
                 '}';
     }
 
@@ -20,14 +26,14 @@ public class TauNode implements CSENode {
 
     @Override
     public void evaluate(CSEMachine cseMachine) {
-        String tauVal = "<ID:STR:(";
         for (int i = 0; i < childrenCount; i++) {
             SymbolNode node =  (SymbolNode)cseMachine.getStack().remove(0);
-            tauVal += node.getVal(node.getLabel())+ ",";
-
+            children.add(node);
         }
-        tauVal = tauVal.substring(0,tauVal.length()-1);
-        tauVal +=")>";
-        cseMachine.getStack().add(0,new SymbolNode(tauVal));
+        cseMachine.getStack().add(0,this);
+    }
+
+    public ArrayList<CSENode> getChildren() {
+        return children;
     }
 }

@@ -1,4 +1,6 @@
-package cse;
+package cse.node;
+
+import cse.CSEMachine;
 
 import java.util.ArrayList;
 
@@ -30,7 +32,8 @@ public class ConditionalNode implements CSENode {
     @Override
     public void evaluate(CSEMachine cseMachine) {
         SymbolNode boolResult = (SymbolNode)cseMachine.getStack().remove(0);
-        if(boolResult.getLabel() =="true"){
+        System.out.println("bool"+boolResult);
+        if(boolResult.getLabel().equals("true")){
             System.out.println("chose then");
             cseMachine.addToControlStructure(thenControls);
             cseMachine.addToControl(thenControls.get(0));

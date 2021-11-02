@@ -27,6 +27,14 @@ public class IntegerOperations {
                     result =1;
                 }
                 break;
+            case "ge":
+                resultB = operand1 >= operand2;
+                if(resultB == true){
+                    result =1;
+                }
+                System.out.println("ge op ");
+                System.out.println(String.valueOf(result));
+                break;
             default:
                 System.out.println("Not an integer operator");
                 break;

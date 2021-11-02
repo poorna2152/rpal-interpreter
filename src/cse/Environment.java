@@ -1,5 +1,7 @@
 package cse;
 
+import cse.node.CSENode;
+
 import java.util.HashMap;
 
 public class Environment {
