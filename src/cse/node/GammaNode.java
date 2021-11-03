@@ -24,6 +24,13 @@ public class GammaNode implements CSENode {
                 if(lambda.getBoundVariable().size() ==1){
                     newEnv.addName(lambda.getBoundVariable().get(0),tuple);
                 }
+                else if(tuple.getChildren().size() != lambda.getBoundVariable().size()){
+                    newEnv.addName(lambda.getBoundVariable().get(0),tuple);
+                    for (int i = 1; i < lambda.getBoundVariable().size(); i++) {
+                        CSENode rand = cseMachine.getStack().remove(0);
+                        newEnv.addName(lambda.getBoundVariable().get(i), rand);
+                    }
+                }
                else{
                     ArrayList<CSENode> children = tuple.getChildren();
                     for (int i = 0; i < lambda.getBoundVariable().size(); i++) {
@@ -64,7 +71,8 @@ public class GammaNode implements CSENode {
         else if(cseMachine.getStack().get(0) instanceof TupleNode){
             TupleNode node = (TupleNode) cseMachine.getStack().remove(0);
             IntegerNode indexNode = (IntegerNode)cseMachine.getStack().remove(0);
-            cseMachine.getStack().add(node.getChildren().get(indexNode.getValue()-1));
+            System.out.println("tuple index");
+            cseMachine.getStack().add(0,node.getChildren().get(indexNode.getValue()-1));
         }
         //checked
         else if(cseMachine.getStack().get(0) instanceof EtaNode){

@@ -20,16 +20,21 @@ public class TupleOperations extends OperationType {
             }
         }
         else if(unaryOperations.contains(operation)) {
-            if(cseMachine.getStack().get(0) instanceof TupleNode){
-                TupleNode rand1 = (TupleNode) cseMachine.getStack().remove(0);
-                if(operation.equals("Order")) {
+            if(operation.equals("<nil>")){
+                System.out.println("in nil node");
+                cseMachine.getStack().add(0, new TupleNode(new ArrayList<>()));
+            }
+            else if(cseMachine.getStack().get(1) instanceof TupleNode) {
+                if (operation.equals("Order")) {
+                    System.out.println("inside op order");
+                    TupleNode rand1 = (TupleNode) cseMachine.getStack().remove(1);
                     cseMachine.getStack().add(0, new IntegerNode(rand1.getChildren().size()));
+                    cseMachine.getStack().remove(1);
                 }else if(operation.equals("Null")) {
+                    TupleNode rand1 = (TupleNode) cseMachine.getStack().remove(1);
                     cseMachine.getStack().add(0, new BooleanNode(rand1.getChildren().size() == 0));
                 }
-            }else if(operation.equals("<nil>")){
-                    System.out.println("in nil node");
-                    cseMachine.getStack().add(0, new TupleNode(new ArrayList<>()));
+
             }
         }
         else{

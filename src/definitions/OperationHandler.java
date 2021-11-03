@@ -38,7 +38,10 @@ public class OperationHandler {
     public void initializeIdentifierOperators(){
         TypeIdentificationOperators typeIdentificationOperators = new TypeIdentificationOperators();
         DefinedOperations definedOperations = new DefinedOperations();
+        TupleOperations tupleOperations = new TupleOperations();
+
         typeIdentificationOperators.setNextType(definedOperations);
+        definedOperations.setNextType(tupleOperations);
         this.identifierOperations = typeIdentificationOperators;
 
     }
@@ -48,6 +51,7 @@ public class OperationHandler {
     }
 
     public void operateDefined(String label, CSEMachine machine){
+        System.out.println("label of:" +label);
         this.identifierOperations.handleOperation(label,machine);
 
     }

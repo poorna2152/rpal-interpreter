@@ -67,9 +67,7 @@ public class IntegerOperations extends OperationType {
         int result = rand1;
         switch (op){
             case "neg":
-                if(result > 0){
-                    result = -result;
-                }
+                result = -result;
                 break;
 
             default:
