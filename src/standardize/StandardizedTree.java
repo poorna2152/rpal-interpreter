@@ -1,6 +1,8 @@
 package standardize;
 
 import ast.*;
+import standardize.standardizer.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -9,14 +11,17 @@ public class StandardizedTree {
     private ArrayList<ArrayList<STNode>> sTree = new ArrayList<>();
     private STNode top;
     private ArrayList<STNode> lastHeightNode = new ArrayList<>();
-
-
+    private STNode updatedNode;
+    private Standardizer standardizer;
 
     public StandardizedTree(AST ast) {
         this.ast = ast;
     }
 
     public void initialize(){
+        StandardizerBuilder standardizerBuilder = new StandardizerBuilder();
+        standardizer = standardizerBuilder.buildStandardizer();
+
         ArrayList<Node> bottomNodes = ast.getNodes().get(ast.getNodes().size()-1);
         for (int i = 0; i < bottomNodes.size(); i++) {
             STNode node = new STNode(bottomNodes.get(i).getName(),bottomNodes.get(i).getParentIndex());
@@ -44,7 +49,11 @@ public class StandardizedTree {
 
                 STNode newNode = new STNode(n.getName(),n.getParentIndex());
                 newNode.setChildren(children);
-                STNode updated = this.standardize(newNode);
+//                System.out.println(newNode);
+//                System.out.println(children);
+                this.standardizer.standardize(newNode, this);
+                STNode updated = this.updatedNode;
+                System.out.println(updatedNode);
                 newLastHeightNodes.add(updated);
             }
             lastHeightNode = newLastHeightNodes;
@@ -54,57 +63,11 @@ public class StandardizedTree {
         return lastHeightNode.get(0);
     }
 
-    public STNode standardize(STNode n){
-        STNode updated = n;
-        Standardizer standardizer;
-
-        switch (n.getLabel()){
-                case "let":
-                    standardizer = new LetStandardizer();
-                    updated = standardizer.standardize(n);
-                break;
-
-                case "function_form":
-                    standardizer = new FunctionFormStandardizer();
-                    updated = standardizer.standardize(n);
-                    break;
-
-                case "within":
-                    standardizer = new WithinStandardizer();
-                    updated = standardizer.standardize(n);
-                    break;
-
-                case "lambda":
-                    standardizer = new MultiParameterStandardizer();
-                    updated = standardizer.standardize(n);
-                break;
-
-                case "and":
-                    standardizer = new AndStandardizer();
-                    updated = standardizer.standardize(n);
-                    break;
-
-                case "rec":
-                    standardizer = new RecStandardizer();
-                    updated = standardizer.standardize(n);
-                    break;
-                case "@":
-                    standardizer = new AtStandardizer();
-                    updated = standardizer.standardize(n);
-                    break;
-
-                case "where":
-                    standardizer = new WhereStandardizer();
-                    updated = standardizer.standardize(n);
-                    break;
-
-                    default:
-//                System.out.println(n.getLabel());
-
-        }
-        return updated;
-
+    public void setUpdatedNode(STNode updatedNode) {
+        this.updatedNode = updatedNode;
     }
+
+
 
     void print_structure(STNode node){
         ArrayList<ArrayList<STNode>> queue = new ArrayList<>();
