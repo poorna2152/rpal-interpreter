@@ -3,8 +3,10 @@ package cse.node;
 import cse.CSEMachine;
 import cse.Environment;
 
+import java.util.ArrayList;
+
 public class EnviromentNode implements CSENode{
-    Environment environment;
+    private Environment environment;
 
     public EnviromentNode(Environment environment) {
         this.environment = environment;
@@ -13,7 +15,23 @@ public class EnviromentNode implements CSENode{
     @Override
     public void evaluate(CSEMachine cseMachine) {
         cseMachine.getStack().remove(1);
-//        cseMachine.setCurrentEnv(this.environment.getParentEnviroment());
+        ArrayList<CSENode> control = cseMachine.getControl();
+        Environment nextEnv = null;
+        int index = control.size()-1;
+        boolean found = false;
+        while(!found && index >= 0){
+            CSENode node = control.get(index);
+            if(node instanceof EnviromentNode){
+                found = true;
+                nextEnv = ((EnviromentNode) node).getEnvironment();
+            }
+            index--;
+        }
+        cseMachine.setCurrentEnv(nextEnv);
+    }
+
+    public Environment getEnvironment() {
+        return environment;
     }
 
     @Override

@@ -31,14 +31,14 @@ public class CSEMachine {
         int count =  0;
         while(control.size()  > 0){
             poppedValue = control.remove(control.size()-1);
-            System.out.println("New Val");
-            System.out.println(poppedValue);
+//            System.out.println("New Val");
+//            System.out.println(poppedValue);
             poppedValue.evaluate(this);
-            System.out.println("Stack");
-            System.out.println(stack);
-            System.out.println("Control");
-            System.out.println(control);
-            System.out.println("");
+//            System.out.println("Stack");
+//            System.out.println(stack);
+//            System.out.println("Control");
+//            System.out.println(control);
+//            System.out.println("");
             count++;
         }
         System.out.println(stack.remove(0));
@@ -89,12 +89,15 @@ public class CSEMachine {
         Environment env = currentEnv;
         boolean found = false;
         CSENode val = null;
+        System.out.println("checking");
         while(!found && env != null){
+            System.out.println(env);
             found = env.checkForExistence(symbol);
             if(found)
                 val = env.getValue(symbol);
             env = env.getParentEnviroment();
         }
+        System.out.println("checking over");
         return val;
     }
 }

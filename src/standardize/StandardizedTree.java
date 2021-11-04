@@ -8,8 +8,6 @@ import java.util.Arrays;
 
 public class StandardizedTree {
     private AST ast;
-    private ArrayList<ArrayList<STNode>> sTree = new ArrayList<>();
-    private STNode top;
     private ArrayList<STNode> lastHeightNode = new ArrayList<>();
     private STNode updatedNode;
     private Standardizer standardizer;
@@ -49,11 +47,8 @@ public class StandardizedTree {
 
                 STNode newNode = new STNode(n.getName(),n.getParentIndex());
                 newNode.setChildren(children);
-//                System.out.println(newNode);
-//                System.out.println(children);
                 this.standardizer.standardize(newNode, this);
                 STNode updated = this.updatedNode;
-                System.out.println(updatedNode);
                 newLastHeightNodes.add(updated);
             }
             lastHeightNode = newLastHeightNodes;

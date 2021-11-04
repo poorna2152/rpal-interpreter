@@ -17,7 +17,7 @@ public class GammaNode implements CSENode {
     public void evaluate(CSEMachine cseMachine) {
         if(cseMachine.getStack().get(0) instanceof LambdaNode){
             LambdaNode lambda = (LambdaNode) cseMachine.getStack().remove(0);
-            Environment newEnv = new Environment(cseMachine.getCurrentEnv());
+            Environment newEnv = new Environment(lambda.getEnv());
 
             if(cseMachine.getStack().get(0) instanceof TupleNode){
                 TupleNode tuple = (TupleNode) cseMachine.getStack().remove(0);
@@ -45,13 +45,12 @@ public class GammaNode implements CSENode {
                     newEnv.addName(lambda.getBoundVariable().get(i), rand);
                 }
             }
-            cseMachine.setCurrentEnv(newEnv);
 
 
             EnviromentNode envNode = new EnviromentNode(newEnv);
 
             cseMachine.getStack().add(0,envNode);
-
+            cseMachine.setCurrentEnv(newEnv);
             ArrayList<CSENode> nextControlStructure = cseMachine.getControlStructures().get(lambda.getIndex());
             cseMachine.addToControl(envNode);
             cseMachine.addToControl(nextControlStructure);

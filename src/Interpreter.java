@@ -9,7 +9,7 @@ public class Interpreter {
         AST ast = new AST();
         StandardizedTree standardizedTree = new StandardizedTree(ast);
 
-        ast.buildAST("ast3");
+        ast.buildAST("ast");
         STNode root = standardizedTree.buildTree();
         CSEMachine cseMachine = new CSEMachine(root);
 //        cseMachine.

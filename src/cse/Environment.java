@@ -31,4 +31,16 @@ public class Environment {
     public boolean checkForExistence(String symbol){
         return names.containsKey(symbol);
     }
+
+    @Override
+    public String toString() {
+        String vars = "";
+        for (int i = 0; i < names.size(); i++) {
+            vars += names.get(i);
+
+        }
+        return "Environment{" +
+                "names=" + vars +
+                '}';
+    }
 }
