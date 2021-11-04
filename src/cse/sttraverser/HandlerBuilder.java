@@ -1,5 +1,6 @@
 package cse.sttraverser;
 
+import cse.node.DummyNode;
 import cse.sttraverser.handler.*;
 
 public class HandlerBuilder {
@@ -15,6 +16,7 @@ public class HandlerBuilder {
         TauHandler tauHandler = new TauHandler();
         YStarHandler yStarHandler = new YStarHandler();
         BooleanHandler booleanHandler = new BooleanHandler();
+        DummyHandler dummyHandler = new DummyHandler();
 
         conditionalHandler.setNextHandler(gammaHandler);
         gammaHandler.setNextHandler(lambdaHandler);
@@ -24,6 +26,7 @@ public class HandlerBuilder {
         integerHandler.setNextHandler(tauHandler);
         tauHandler.setNextHandler(yStarHandler);
         yStarHandler.setNextHandler(booleanHandler);
+        booleanHandler.setNextHandler(dummyHandler);
 
 
 

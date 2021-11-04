@@ -21,33 +21,39 @@ public class ConditionalHandler extends Handler {
 
             traverser.getControls().add(new ArrayList<>());
             traverser.setNextIndex(nextIndex+1);;
-            traverser.traverse(node.getChildren().get(1),nextIndex);
+            traverser.traverse(node.getChildren().get(1),nextIndex+1);
 
             ArrayList<ArrayList<CSENode>> thenControls = new ArrayList<>();
-            int traverserLen = traverser.getControls().size();
-            for (int i = nextIndex+1; i < traverserLen ; i++) {
-                thenControls.add(traverser.getControls().remove(nextIndex));
-            }
+//            int traverserLen = traverser.getControls().size();
+            thenControls.add(traverser.getControls().get(nextIndex+1));
+//            if(traverserLen > 1){
+//
+//            }
+//            for (int i = nextIndex+1; i < traverserLen ; i++) {
+//                thenControls.add(traverser.getControls().remove(nextIndex));
+//            }
 
 
-            traverser.setNextIndex(copyNextIndex+1);;
+//            traverser.setNextIndex(copyNextIndex+1);;
 
-            nextIndex = copyNextIndex;
-            traverser.setNextIndex(nextIndex+1);;
+            nextIndex = traverser.getNextIndex();
+            traverser.setNextIndex(nextIndex+1);
 
             traverser.getControls().add(new ArrayList<>());
 
-            traverser.traverse(node.getChildren().get(2),nextIndex);
+            traverser.traverse(node.getChildren().get(2),nextIndex+1);
             ArrayList<ArrayList<CSENode>> elseControls = new ArrayList<>();
-            traverserLen = traverser.getControls().size();
-            for (int i = nextIndex+1; i < traverserLen ; i++) {
-                elseControls.add(traverser.getControls().remove(nextIndex));
-            }
+            elseControls.add(traverser.getControls().get(nextIndex+1));
+
+//            traverserLen = traverser.getControls().size();
+//            for (int i = nextIndex+1; i < traverserLen ; i++) {
+//                elseControls.add(traverser.getControls().remove(nextIndex));
+//            }
 
             conditionalNode.setThenControls(thenControls);
             conditionalNode.setElseControls(elseControls);
 
-            traverser.setNextIndex(copyNextIndex);;
+//            traverser.setNextIndex(copyNextIndex);;
             traverser.addToControl(index,conditionalNode);
             stack.add(0,node.getChildren().get(0));
         }

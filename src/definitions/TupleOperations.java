@@ -21,12 +21,10 @@ public class TupleOperations extends OperationType {
         }
         else if(unaryOperations.contains(operation)) {
             if(operation.equals("<nil>")){
-                System.out.println("in nil node");
                 cseMachine.getStack().add(0, new TupleNode(new ArrayList<>()));
             }
             else if(cseMachine.getStack().get(1) instanceof TupleNode) {
                 if (operation.equals("Order")) {
-                    System.out.println("inside op order");
                     TupleNode rand1 = (TupleNode) cseMachine.getStack().remove(1);
                     cseMachine.getStack().add(0, new IntegerNode(rand1.getChildren().size()));
                     cseMachine.getStack().remove(1);

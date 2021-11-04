@@ -3,7 +3,6 @@ package cse.node;
 import cse.CSEMachine;
 import cse.Environment;
 import definitions.OperationHandler;
-import definitions.TypeIdentificationOperators;
 
 import java.util.ArrayList;
 
@@ -70,7 +69,6 @@ public class GammaNode implements CSENode {
         else if(cseMachine.getStack().get(0) instanceof TupleNode){
             TupleNode node = (TupleNode) cseMachine.getStack().remove(0);
             IntegerNode indexNode = (IntegerNode)cseMachine.getStack().remove(0);
-            System.out.println("tuple index");
             cseMachine.getStack().add(0,node.getChildren().get(indexNode.getValue()-1));
         }
         //checked

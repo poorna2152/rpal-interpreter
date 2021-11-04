@@ -26,6 +26,9 @@ public class IntegerOperations extends OperationType {
                     cseMachine.getStack().add(0,new BooleanNode(result));
                 }
             }
+            else{
+                super.handleOperation(operation,cseMachine);
+            }
         }
         else if(unaryOperations.contains(operation)) {
             if (cseMachine.getStack().get(0) instanceof IntegerNode) {

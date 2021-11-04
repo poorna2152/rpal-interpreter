@@ -14,7 +14,7 @@ public class StringHandler extends Handler {
             String label = node.getLabel();
             int startIndex = label.indexOf(":");
             String stringVal = label.substring(startIndex+1,label.length()-1);
-            traverser.addToControl(index,new StringNode(stringVal));
+            traverser.addToControl(index,new StringNode(stringVal.substring(1,stringVal.length()-1)));
         }
         else{super.handle(node, traverser, stack, index);}
     }

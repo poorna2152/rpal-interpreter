@@ -15,21 +15,29 @@ public class StringOperators extends  OperationType{
     @Override
     public void handleOperation(String operation, CSEMachine cseMachine) {
         if(binaryOperations.contains(operation) || binaryComparisonOperations.contains(operation)){
-            if(cseMachine.getStack().get(0) instanceof StringNode && cseMachine.getStack().get(1) instanceof StringNode){
+            if(binaryOperations.contains(operation) ){
+                cseMachine.getStack().remove(0);
                 StringNode rand1 = (StringNode)cseMachine.getStack().remove(0);
                 StringNode rand2 = (StringNode)cseMachine.getStack().remove(0);
-                if(binaryOperations.contains(operation)){
-                    String result = this.operate(operation,rand1.getValue(),rand2.getValue());
-                    cseMachine.getStack().add(0,new StringNode(result));
-                }else{
-                    boolean result = this.operateBool(operation,rand1.getValue(),rand2.getValue());
-                    cseMachine.getStack().add(0,new BooleanNode(result));
-                }
+                String result = this.operate(operation,rand1.getValue(),rand2.getValue());
+                cseMachine.getStack().add(0,new StringNode(result));
+            }
+            else if(binaryComparisonOperations.contains(operation) && cseMachine.getStack().get(0) instanceof StringNode && cseMachine.getStack().get(1) instanceof StringNode){
+//                System.out.println("eq operation");
+                StringNode rand1 = (StringNode)cseMachine.getStack().remove(0);
+                StringNode rand2 = (StringNode)cseMachine.getStack().remove(0);
+                boolean result = this.operateBool(operation,rand1.getValue(),rand2.getValue());
+                cseMachine.getStack().add(0,new BooleanNode(result));
+
+            }
+            else{
+                super.handleOperation(operation,cseMachine);
             }
         }
         else if(unaryOperations.contains(operation)) {
-            if (cseMachine.getStack().get(0) instanceof StringNode) {
-                StringNode rand1 = (StringNode) cseMachine.getStack().remove(0);
+            if (cseMachine.getStack().get(1) instanceof StringNode) {
+                StringNode rand1 = (StringNode) cseMachine.getStack().remove(1);
+                cseMachine.getStack().remove(0);
                 String result = this.operate(operation, rand1.getValue());
                 cseMachine.getStack().add(0,new StringNode(result));
             }
@@ -70,13 +78,15 @@ public class StringOperators extends  OperationType{
 
     public String operate(String op, String rand1){
         String result = "";
-
+        System.out.println(rand1);
+        System.out.println(op);
+        System.out.println("testing");
         switch (op){
             case "Stem":
                 result = Character.toString(rand1.charAt(0));
                 break;
             case "Stern":
-                result = Character.toString(rand1.charAt(rand1.length()-1));
+                result = rand1.substring(1);
                 break;
             default:
                 System.out.println("Invalid String operation");

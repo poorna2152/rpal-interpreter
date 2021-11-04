@@ -23,7 +23,6 @@ public class TypeIdentificationOperators extends OperationType{
     }
 
     public boolean operate(String op, CSENode node){
-        System.out.println(op);
         boolean result = false;
         switch (op){
             case "Isinteger":
@@ -39,7 +38,7 @@ public class TypeIdentificationOperators extends OperationType{
                 result = node instanceof TauNode;
                 break;
             case "Isfunction":
-                result = node instanceof IdentifierNode;
+                result = node instanceof LambdaNode;
                 break;
 
             case "Isdummy":

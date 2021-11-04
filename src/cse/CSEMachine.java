@@ -21,15 +21,13 @@ public class CSEMachine {
         this.control.add(e0);
         this.control.addAll(this.controlStructures.get(0));
         this.stack.add(e0);
-        System.out.println("CSE Machine");
-        System.out.println("");
         this.evaluate();
     }
 
     public void evaluate(){
         CSENode poppedValue = null;
         int count =  0;
-        while(control.size()  > 0){
+        while(control.size()  > 0 ){
             poppedValue = control.remove(control.size()-1);
 //            System.out.println("New Val");
 //            System.out.println(poppedValue);
@@ -89,15 +87,12 @@ public class CSEMachine {
         Environment env = currentEnv;
         boolean found = false;
         CSENode val = null;
-        System.out.println("checking");
         while(!found && env != null){
-            System.out.println(env);
             found = env.checkForExistence(symbol);
             if(found)
                 val = env.getValue(symbol);
             env = env.getParentEnviroment();
         }
-        System.out.println("checking over");
         return val;
     }
 }
