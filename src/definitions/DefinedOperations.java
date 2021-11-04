@@ -10,9 +10,7 @@ public class DefinedOperations extends  OperationType{
     @Override
     public void handleOperation(String operation, CSEMachine cseMachine) {
         if(operation.equals("Print")){
-            System.out.println("Output");
-            cseMachine.getStack().remove(0);
-//            System.out.println(cseMachine.getStack().remove(1));
+            System.out.println(cseMachine.getStack().remove(1));
         }
         else{
             super.handleOperation(operation, cseMachine);

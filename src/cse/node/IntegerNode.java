@@ -20,8 +20,6 @@ public class IntegerNode implements CSENode {
 
     @Override
     public String toString() {
-        return "IntegerNode{" +
-                "value=" + value +
-                '}';
+        return Integer.toString(value);
     }
 }

@@ -22,9 +22,9 @@ public class PreOrderTraverser {
 
     public ArrayList<ArrayList<CSENode>> startTraversal(){
         this.traverse(root,0);
-        for (int i = 0; i < controls.size(); i++) {
-            System.out.println(controls.get(i));
-        }
+//        for (int i = 0; i < controls.size(); i++) {
+//            System.out.println(controls.get(i));
+//        }
         return controls;
 
     }

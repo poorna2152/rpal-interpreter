@@ -3,6 +3,7 @@ package cse.node;
 import cse.CSEMachine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TupleNode implements CSENode {
     private ArrayList<CSENode> children;
@@ -17,9 +18,7 @@ public class TupleNode implements CSENode {
 
     @Override
     public String toString() {
-        return "TupleNode{" +
-                "children=" + children +
-                '}';
+        return  Arrays.toString(children.toArray()).replace("[", "(").replace("]", ")");
     }
 
 

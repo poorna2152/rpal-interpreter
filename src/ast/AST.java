@@ -41,8 +41,7 @@ public class AST {
 
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            System.out.println("File not found");
         }
     }
 

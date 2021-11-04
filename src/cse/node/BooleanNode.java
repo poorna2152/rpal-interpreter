@@ -20,8 +20,6 @@ public class BooleanNode implements CSENode {
 
     @Override
     public String toString() {
-        return "BooleanNode{" +
-                "value=" + value +
-                '}';
+        return  Boolean.toString(value);
     }
 }

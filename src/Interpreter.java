@@ -6,6 +6,7 @@ import standardize.StandardizedTree;
 public class Interpreter {
 
     public static void main(String[] args){
+
         AST ast = new AST();
         StandardizedTree standardizedTree = new StandardizedTree(ast);
 

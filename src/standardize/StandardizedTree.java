@@ -53,8 +53,8 @@ public class StandardizedTree {
             }
             lastHeightNode = newLastHeightNodes;
         }
-        System.out.println("Started printing out the structure");
-        print_structure(lastHeightNode.get(0));
+//        System.out.println("Started printing out the structure");
+        print_structure_dfs(lastHeightNode.get(0),0);
         return lastHeightNode.get(0);
     }
 
@@ -62,9 +62,23 @@ public class StandardizedTree {
         this.updatedNode = updatedNode;
     }
 
+    void print_structure_dfs(STNode node, int currentHeight){
+        ArrayList<STNode> children = node.getChildren();
+        String dots = "";
+        for (int i = 0; i < currentHeight; i++) {
+            dots+=".";
+        }
+        System.out.println(dots + node.getLabel());
+        int count = 0;
+        while(children.size() > count){
+            STNode n = children.get(count);
+            print_structure_dfs(n,currentHeight+1);
+            count++;
+        }
+    }
 
 
-    void print_structure(STNode node){
+    void print_structure_bfs(STNode node){
         ArrayList<ArrayList<STNode>> queue = new ArrayList<>();
         ArrayList<ArrayList<String>> printOrder = new ArrayList<>();
         queue.add(new ArrayList<>(Arrays.asList(node)));

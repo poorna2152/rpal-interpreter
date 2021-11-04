@@ -20,8 +20,6 @@ public class StringNode implements CSENode {
 
     @Override
     public String toString() {
-        return "StringNode{" +
-                "value='" + value + '\'' +
-                '}';
+        return value;
     }
 }

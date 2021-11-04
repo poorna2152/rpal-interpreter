@@ -78,9 +78,6 @@ public class StringOperators extends  OperationType{
 
     public String operate(String op, String rand1){
         String result = "";
-        System.out.println(rand1);
-        System.out.println(op);
-        System.out.println("testing");
         switch (op){
             case "Stem":
                 result = Character.toString(rand1.charAt(0));

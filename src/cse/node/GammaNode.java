@@ -85,10 +85,6 @@ public class GammaNode implements CSENode {
             OperationHandler.getInstance().operateDefined(node.getLabel(),cseMachine);
         }
 
-        else{
-            System.out.println("Invalid node");
-            System.out.println(cseMachine.getStack().get(0));
-        }
     }
 
 }
