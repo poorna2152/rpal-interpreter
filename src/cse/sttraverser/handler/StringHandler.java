@@ -8,6 +8,13 @@ import standardize.STNode;
 import java.util.ArrayList;
 
 public class StringHandler extends Handler {
+    /***
+     * Check done for the <STR: tag in the STNode.name
+     * @param node
+     * @param traverser
+     * @param stack
+     * @param index
+     */
     @Override
     public void handle(STNode node, PreOrderTraverser traverser, ArrayList<STNode> stack, int index) {
         if(node.getLabel().indexOf("<STR:") == 0) {

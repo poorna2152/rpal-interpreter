@@ -12,6 +12,11 @@ public class Environment {
         this.parentEnviroment = parentEnviroment;
     }
 
+    /***
+     * Add a definition of a name to the the environment
+     * @param key: label
+     * @param value: CSENode of the value
+     */
     public void addName(String key, CSENode value){
         this.names.put(key,value);
     }
@@ -20,6 +25,11 @@ public class Environment {
         return names;
     }
 
+    /***
+     * Return the CSENode corresponding to the symbol
+     * @param symbol: The symbol whose value is needed
+     * @return
+     */
     public CSENode getValue(String symbol){
         return names.get(symbol);
     }
@@ -28,6 +38,11 @@ public class Environment {
         return parentEnviroment;
     }
 
+    /***
+     * Check whether a given symbol is defined in the environment
+     * @param symbol: symbol to check
+     * @return true if defined false else
+     */
     public boolean checkForExistence(String symbol){
         return names.containsKey(symbol);
     }

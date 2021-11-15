@@ -9,6 +9,15 @@ import standardize.STNode;
 import java.util.ArrayList;
 
 public class LambdaHandler extends Handler{
+    /***
+     * Add lambda Node to control structure.
+     * If in ST LambdaNode has CommaNode as a child Add the children of the CommaNode to LamndaNode's bound variables
+     * Else add the lambdaNode child as a bound variable to LambdaNode in control structure.
+     * @param node
+     * @param traverser
+     * @param stack
+     * @param index
+     */
     @Override
     public void handle(STNode node, PreOrderTraverser traverser, ArrayList<STNode> stack,int index) {
 

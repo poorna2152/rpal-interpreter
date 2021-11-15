@@ -16,6 +16,10 @@ public class StandardizedTree {
         this.ast = ast;
     }
 
+    /**
+     * Add last nodes of the AST to lastHeightNode arraylist.
+     * Initiate the standardizer by calling builder
+     */
     public void initialize(){
         StandardizerBuilder standardizerBuilder = new StandardizerBuilder();
         standardizer = standardizerBuilder.buildStandardizer();
@@ -27,7 +31,12 @@ public class StandardizedTree {
         }
     }
 
-    public STNode buildTree(){
+    /**
+     * Generate the ST
+     * @param setPrint: top print the ST
+     * @return
+     */
+    public STNode buildTree(boolean setPrint){
         initialize();
         ArrayList<ArrayList<Node>> astNodes = ast.getNodes();
 
@@ -53,15 +62,25 @@ public class StandardizedTree {
             }
             lastHeightNode = newLastHeightNodes;
         }
-//        System.out.println("Started printing out the structure");
-        print_structure_dfs(lastHeightNode.get(0),0);
+        if(setPrint){
+            print_structure_dfs(lastHeightNode.get(0),0);
+        }
         return lastHeightNode.get(0);
     }
 
+    /**
+     * set the updated node in the standardizer
+     * @param updatedNode
+     */
     public void setUpdatedNode(STNode updatedNode) {
         this.updatedNode = updatedNode;
     }
 
+    /**
+     * Print the ST to console using the dfs approach with dots
+     * @param node
+     * @param currentHeight
+     */
     void print_structure_dfs(STNode node, int currentHeight){
         ArrayList<STNode> children = node.getChildren();
         String dots = "";
@@ -77,7 +96,10 @@ public class StandardizedTree {
         }
     }
 
-
+    /**
+     * Print the tree to console using BFS approach with nodes in same height printed on same line
+     * @param node
+     */
     void print_structure_bfs(STNode node){
         ArrayList<ArrayList<STNode>> queue = new ArrayList<>();
         ArrayList<ArrayList<String>> printOrder = new ArrayList<>();

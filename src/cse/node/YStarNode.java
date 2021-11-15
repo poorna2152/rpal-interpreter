@@ -7,4 +7,9 @@ public class YStarNode implements CSENode{
     public void evaluate(CSEMachine cseMachine) {
         cseMachine.getStack().add(0,this);
     }
+
+    @Override
+    public String toString() {
+        return "YStarNode";
+    }
 }

@@ -10,6 +10,9 @@ public class TruthValueOperators extends OperationType{
     private final ArrayList<String> binaryOperations = new ArrayList<>(Arrays.asList("or", "&", "eq", "ne"));
     private final ArrayList<String> unaryOperations = new ArrayList<>(Arrays.asList("not"));
 
+    /**
+     * Binary operation handling
+     */
     @Override
     public void handleOperation(String operation, CSEMachine cseMachine) {
         if(binaryOperations.contains(operation)){

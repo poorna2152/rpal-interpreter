@@ -5,6 +5,10 @@ import cse.CSEMachine;
 public class OperationType {
     private OperationType nextType = null;
 
+    /**
+     * Default behaviour of operations
+     * if no nextType then exception.
+     */
     public void handleOperation(String operation, CSEMachine cseMachine){
         if(this.nextType != null){
             this.nextType.handleOperation(operation,cseMachine);

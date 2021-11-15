@@ -19,6 +19,10 @@ public class TauNode implements CSENode {
         this.childrenCount = childrenCount;
     }
 
+    /***
+     * Add the next childrenCount number of elements in the stack to a TupleNode and add TupleNode to the stack.
+     * @param cseMachine
+     */
     @Override
     public void evaluate(CSEMachine cseMachine) {
         ArrayList<CSENode> children = new ArrayList<>();

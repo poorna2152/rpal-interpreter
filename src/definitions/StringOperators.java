@@ -12,10 +12,18 @@ public class StringOperators extends  OperationType{
     private final ArrayList<String> binaryComparisonOperations = new ArrayList<>(Arrays.asList("eq", "ne"));
     private final ArrayList<String> unaryOperations = new ArrayList<>(Arrays.asList("Stem", "Stern"));
 
+    /**
+     * Conc: Concatenate two strings
+     * Stem: First element of a string
+     * Stern: Except first one rest of the characters in a string.
+     * @param operation
+     * @param cseMachine
+     */
     @Override
     public void handleOperation(String operation, CSEMachine cseMachine) {
         if(binaryOperations.contains(operation) || binaryComparisonOperations.contains(operation)){
             if(binaryOperations.contains(operation) ){
+                cseMachine.getControl().remove(cseMachine.getControl().size()-1);
                 cseMachine.getStack().remove(0);
                 StringNode rand1 = (StringNode)cseMachine.getStack().remove(0);
                 StringNode rand2 = (StringNode)cseMachine.getStack().remove(0);

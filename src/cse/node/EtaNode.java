@@ -28,6 +28,10 @@ public class EtaNode implements CSENode{
                 '}';
     }
 
+    /***
+     * ETANode cannot be in the control
+     * @param cseMachine
+     */
     @Override
     public void evaluate(CSEMachine cseMachine) {
         System.out.println("Invalid eta node found in control");

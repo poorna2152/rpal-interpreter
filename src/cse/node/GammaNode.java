@@ -12,8 +12,23 @@ public class GammaNode implements CSENode {
         return "GammaNode";
     }
 
+    /***
+     * Evaluate based on the next node in  the stack
+     * Top most in stack is a LambdaNode:
+     *  Add an environmentNode to Stack with the environment set on the Lambda.
+     *  If the node next to Lambda in stack is not a TupleNode add the node to value of LambdaNodes boundVariable
+     *  If the node next to Lambda is a TupleNode check if bounding varibles in Lambda is 1 if so then add tuple as the value of bounding varible
+     *  If Lambda has more than 1 bounding variables match them to elements in tuple
+     *
+     * Top most in stack YStarNode: If the second node is a LambdaNode remove Lambda and Ystar and add a EtaNode
+     * If Tuple Node: Get the element in the tuple in the index given in the second element in stack
+     * If EtaNode: Add to control two GammaNodes( to one which was popped). Add a LambdaNode to stack buu using the same parameters of EtaNode
+     * If IdentifierNode: Use the operationHandler to handle the operation.
+     * @param cseMachine
+     */
     @Override
     public void evaluate(CSEMachine cseMachine) {
+
         if(cseMachine.getStack().get(0) instanceof LambdaNode){
             LambdaNode lambda = (LambdaNode) cseMachine.getStack().remove(0);
             Environment newEnv = new Environment(lambda.getEnv());
@@ -56,7 +71,6 @@ public class GammaNode implements CSENode {
 
         }
 
-        //checked
         else if(cseMachine.getStack().get(0) instanceof YStarNode){
             if(cseMachine.getStack().get(1) instanceof LambdaNode){
                 cseMachine.getStack().remove(0);
@@ -65,13 +79,11 @@ public class GammaNode implements CSENode {
             }
         }
 
-        //
         else if(cseMachine.getStack().get(0) instanceof TupleNode){
             TupleNode node = (TupleNode) cseMachine.getStack().remove(0);
             IntegerNode indexNode = (IntegerNode)cseMachine.getStack().remove(0);
             cseMachine.getStack().add(0,node.getChildren().get(indexNode.getValue()-1));
         }
-        //checked
         else if(cseMachine.getStack().get(0) instanceof EtaNode){
                 EtaNode etaNode = (EtaNode)cseMachine.getStack().get(0);
                 cseMachine.addToControl(new GammaNode());
@@ -79,7 +91,6 @@ public class GammaNode implements CSENode {
                 cseMachine.getStack().add(0,new LambdaNode(etaNode.getIndex(),etaNode.getBoundVariable(), etaNode.getEnv()));
         }
 
-        //checked -double check again
         else if (cseMachine.getStack().get(0) instanceof IdentifierNode){
             IdentifierNode node = (IdentifierNode)cseMachine.getStack().get(0);
             OperationHandler.getInstance().operateDefined(node.getLabel(),cseMachine);

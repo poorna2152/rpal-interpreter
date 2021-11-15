@@ -12,6 +12,11 @@ public class IntegerOperations extends OperationType {
     private final ArrayList<String> binaryComparisonOperations = new ArrayList<>(Arrays.asList("eq", "ne", "ls", "<", "gr", ">", "le", "<=", "ge", ">="));
     private final ArrayList<String> unaryOperations = new ArrayList<>(Arrays.asList("neg"));
 
+    /**
+     * Handle binary and unary boolean operators
+     * @param operation
+     * @param cseMachine
+     */
     @Override
     public void handleOperation(String operation,CSEMachine cseMachine) {
         if(binaryOperations.contains(operation) || binaryComparisonOperations.contains(operation)){
@@ -42,6 +47,9 @@ public class IntegerOperations extends OperationType {
             }
     }
 
+    /***
+     * Binary operator definitions
+     */
     public int operateInt(String op, int rand1, int rand2){
         int result = 0;
         switch (op){
@@ -66,6 +74,10 @@ public class IntegerOperations extends OperationType {
         }
         return result;
     }
+
+    /***
+     * Unary operator definitions
+     */
     public int operateInt(String op, int rand1){
         int result = rand1;
         switch (op){
@@ -80,6 +92,9 @@ public class IntegerOperations extends OperationType {
         return result;
     }
 
+    /***
+     * Comparison operator definitions
+     */
     public boolean operateBool(String op, int rand1, int rand2){
         boolean result = false;
         switch (op){

@@ -8,6 +8,10 @@ import java.util.Scanner;
 public class AST {
     private ArrayList<ArrayList<Node>> nodes = new ArrayList<>();
 
+    /***
+     * Generate the AST Structure
+     * @param filepath: Input file file path
+     */
     public void buildAST(String filepath){
         try {
             File myObj = new File(filepath);
@@ -27,16 +31,12 @@ public class AST {
                 if(dotCount > cHeight){
                     nodes.add(new ArrayList<Node>());
                     nodes.get(dotCount).add(new Node(data.substring(dotCount), dotCount, 0, parentIndex));
-//                    nodes.get(dotCount-1).get(parentIndex).setChildrenIndexes(0);
                     cHeight = dotCount;
                 }
                 else {
                     int index = nodes.get(dotCount).size();
                     nodes.get(dotCount).add(new Node(data.substring(dotCount), dotCount, index, parentIndex));
-//                    nodes.get(dotCount-1).get(parentIndex).setChildrenIndexes(nodes.get(dotCount).size()-1);
                 }
-
-                //System.out.println(dotCount);
             }
 
             myReader.close();
@@ -45,10 +45,12 @@ public class AST {
         }
     }
 
-    public Node getParent(int height, int index){
-        return nodes.get(height).get(index);
-    }
-
+    /***
+     *
+     * Return immediate children of the given node in the AST
+     * @param parentN node to find parent of
+     * @return ArrayList of children nodes
+     */
     public ArrayList<Node> getChildren(Node parentN){
         ArrayList<Node> children = new ArrayList<>();
         for (Node n:nodes.get(parentN.getHeight()+1)) {
@@ -59,6 +61,11 @@ public class AST {
         return children;
     }
 
+    /***
+     * Return the 2D Array list of nodes in AST with each ArrayList inside the main ArrayList representing nodes of the
+     * same height of the AST
+      * @return Tree structure
+     */
     public ArrayList<ArrayList<Node>> getNodes() {
         return nodes;
     }

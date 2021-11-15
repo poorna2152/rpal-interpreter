@@ -33,6 +33,10 @@ public class LambdaNode implements CSENode {
                 '}';
     }
 
+    /***
+     * Set the currentEnviroment of the CSEMachine to the LambdaNode's currentEnv and add LambdaNode to stack.
+     * @param cseMachine
+     */
     @Override
     public void evaluate(CSEMachine cseMachine) {
         this.setEnv(cseMachine.getCurrentEnv());

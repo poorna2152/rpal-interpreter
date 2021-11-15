@@ -12,19 +12,29 @@ public class PreOrderTraverser {
     private STNode root;
     private int nextIndex = 0;
     private Handler handlers;
+    private boolean printControl;
 
-    public PreOrderTraverser(STNode node) {
+    public PreOrderTraverser(STNode node, boolean printControl) {
         this.root = node;
+        this.printControl = printControl;
         this.handlers = new HandlerBuilder().buildTraverserHandler();
         this.controls = new ArrayList<>();
         this.controls.add(new ArrayList<>());
     }
 
+    /***
+     * Initiate generate of control structures
+     * @return
+     */
     public ArrayList<ArrayList<CSENode>> startTraversal(){
         this.traverse(root,0);
-//        for (int i = 0; i < controls.size(); i++) {
-//            System.out.println(controls.get(i));
-//        }
+        if(this.printControl){
+            System.out.println();
+            System.out.println("Controls");
+            for (int i = 0; i < controls.size(); i++) {
+                System.out.println(controls.get(i));
+            }
+        }
         return controls;
 
     }
@@ -46,6 +56,12 @@ public class PreOrderTraverser {
         return nextIndex;
     }
 
+    /***
+     * Traverse through each node in ST TO generate control structures. Found nodes are inserted to a stack and the stack
+     * is popped.
+     * @param node
+     * @param index
+     */
     public void traverse(STNode node,int index){
         ArrayList<STNode> stack = new ArrayList<>(Arrays.asList(node));
         STNode currentNode = null;

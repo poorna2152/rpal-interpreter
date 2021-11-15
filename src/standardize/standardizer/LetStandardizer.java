@@ -8,9 +8,14 @@ import java.util.Arrays;
 
 public class LetStandardizer extends Standardizer{
 
-    //                                  n -> gamma
-    //                          lambda                  E = n->child[0]->child[1]
-    //X = n->child[0]->child[0]     P = n->child[1]
+    /**
+     *                                 n -> gamma
+     *                               lambda                  E = n->child[0]->child[1]
+     *     X = n->child[0]->child[0]     P = n->child[1]
+     * @param n
+     * @param standardizedTree
+     */
+
 
     @Override
     public void standardize(STNode n, StandardizedTree standardizedTree) {

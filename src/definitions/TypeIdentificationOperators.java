@@ -9,6 +9,9 @@ import java.util.Arrays;
 public class TypeIdentificationOperators extends OperationType{
     private final ArrayList<String> operations = new ArrayList<>(Arrays.asList("Isinteger", "Istruthvalue", "Isstring", "Isfunction", "Isdummy"));
 
+    /**
+     * Type identifiers
+     */
     @Override
     public void handleOperation(String operation, CSEMachine cseMachine) {
         if(operations.contains(operation) ){

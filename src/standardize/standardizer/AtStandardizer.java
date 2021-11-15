@@ -8,10 +8,14 @@ import java.util.Arrays;
 
 public class AtStandardizer extends   Standardizer{
 
+    /**
+     *                                       gamma1
+     *                               gamma2                                           E2 = n->child[2]
+     *           N =  n->child[1]                      E1=  n->child[0]
+     * @param n
+     * @param standardizedTree
+     */
 
-    //                                      gamma1
-    //                          gamma2                                           E2 = n->child[2]
-    //      N =  n->child[1]                      E1=  n->child[0]
 
 
     @Override

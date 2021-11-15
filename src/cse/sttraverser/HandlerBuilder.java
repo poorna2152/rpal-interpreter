@@ -6,6 +6,10 @@ import cse.sttraverser.handler.*;
 public class HandlerBuilder {
     public Handler handler = null;
 
+    /***
+     * build the handler chain which handles Standardizing of STNodes.
+     * @return
+     */
     public Handler buildTraverserHandler(){
         ConditionalHandler conditionalHandler = new ConditionalHandler();
         GammaHandler gammaHandler = new GammaHandler();

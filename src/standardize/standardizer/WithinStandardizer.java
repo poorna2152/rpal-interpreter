@@ -8,11 +8,15 @@ import java.util.Arrays;
 
 public class WithinStandardizer extends Standardizer{
 
-
-    //                                      =
-    //      X2-= n->child[1]->child[0]                                           gamma
-    //                                                              lambda                          E1=  n->child[0]->child[1]
-    //                                     X1 = n->child[0]->child[0]      E2=  n->child[1]->child[1]
+    /***
+     * Generate the following structure
+     *                                             =
+     *         X2-= n->child[1]->child[0]                                           gamma
+     *                                                                 lambda                          E1=  n->child[0]->child[1]
+     *                                        X1 = n->child[0]->child[0]      E2=  n->child[1]->child[1]
+     * @param n
+     * @param standardizedTree
+     */
 
     @Override
     public void standardize(STNode n, StandardizedTree standardizedTree) {

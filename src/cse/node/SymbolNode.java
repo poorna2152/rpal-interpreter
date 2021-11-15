@@ -16,9 +16,7 @@ public class SymbolNode implements CSENode {
 
     @Override
     public String toString() {
-        return "SymbolNode{" +
-                "label='" + label + '\'' +
-                '}';
+        return label;
     }
 
     @Override

@@ -10,6 +10,15 @@ public class TupleOperations extends OperationType {
     private final ArrayList<String> binaryOperations = new ArrayList<>(Arrays.asList("aug"));
     private final ArrayList<String> unaryOperations = new ArrayList<>(Arrays.asList("Null", "Order", "<nil>"));
 
+    /**
+     * Tuple operations:
+     * nil: Initiate a new Tuple (empty)
+     * Order: get length of a tuple
+     * Null: check if tuple is nil
+     * aug: add next in stack to tuple
+     * @param operation
+     * @param cseMachine
+     */
     @Override
     public void handleOperation(String operation, CSEMachine cseMachine) {
         if(binaryOperations.contains(operation)){

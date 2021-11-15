@@ -8,10 +8,14 @@ import java.util.Arrays;
 
 public class FunctionFormStandardizer extends Standardizer{
 
+    /**
+     *                                       =
+     *           P-= n->child[0]                                     lambda
+     *                                   V=n->child[0<x<child.size()-2]      .E= n->child[last]
+     * @param n
+     * @param standardizedTree
+     */
 
-    //                                      =
-    //      P-= n->child[0]                                     lambda
-    //                              V=n->child[0<x<child.size()-2]      .E= n->child[last]
 
     public void standardize(STNode n, StandardizedTree standardizedTree) {
         if(n.getLabel().equals("function_form")){
@@ -22,6 +26,7 @@ public class FunctionFormStandardizer extends Standardizer{
             STNode P = new STNode(children.get(0).getLabel());
             STNode E = children.get(children.size()-1);
             int count = 1;
+            //generate the repetition structure
             while(count <= children.size()-1){
                 STNode lambda = new STNode("lambda");
                 if (subStructure.size() != 0) {

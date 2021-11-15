@@ -8,6 +8,19 @@ public class STNode {
     private boolean revisit = false;
     private ArrayList<STNode> children = new ArrayList<>();
 
+    /**
+     * Children stored in children array which is later used in generating control structures
+     */
+    public STNode(String label) {
+        this.label = label;
+    }
+
+    public STNode(String label,int astParentIndex) {
+        this.astParentIndex = astParentIndex;
+        this.label = label;
+    }
+
+
     public ArrayList<STNode> getChildren() {
         return children;
     }
@@ -28,14 +41,6 @@ public class STNode {
         this.children.add(node);
     }
 
-    public STNode(String label) {
-        this.label = label;
-    }
-
-    public STNode(String label,int astParentIndex) {
-        this.astParentIndex = astParentIndex;
-        this.label = label;
-    }
 
     public String getLabel() {
         return label;

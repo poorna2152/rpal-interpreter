@@ -8,8 +8,13 @@ import java.util.Arrays;
 
 public class MultiParameterStandardizer extends  Standardizer {
 
-    //              ++n -> lambda
-    //      V           .E
+    /**
+     *         ++n ->lambda
+     *      V           .E
+     * @param n
+     * @param standardizedTree
+     */
+
     @Override
     public void standardize(STNode n, StandardizedTree standardizedTree) {
         if(n.getLabel().equals("lambda")){
@@ -20,11 +25,13 @@ public class MultiParameterStandardizer extends  Standardizer {
                 STNode E = children.remove(children.size() - 1);
 
                 int count = 0;
+                //generate the repetition structure
                 while (count < children.size()) {
                     STNode lambda = new STNode("lambda");
                     if (subStructure.size() != 0) {
                         STNode lastInserted = subStructure.get(subStructure.size() - 1);
                         lastInserted.setChildren(new ArrayList<>(Arrays.asList(children.get(count - 1), lambda)));
+                        //if last then add E to children
                         if (count == children.size()-1) {
                             lambda.setChildren(new ArrayList<>(Arrays.asList(children.get(count), E)));
                         }

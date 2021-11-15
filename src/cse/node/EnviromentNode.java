@@ -12,6 +12,13 @@ public class EnviromentNode implements CSENode{
         this.environment = environment;
     }
 
+    /***
+     * Remove the EnviromentNode in the second position of the stack.
+     * Check the control of CSEMachine from end to start for an EnviromentNode and set the currentEnvironmnent of
+     * the CSEMachine to the
+     * closest EnvironmentNode in the control to the end.(rightmost)
+     * @param cseMachine
+     */
     @Override
     public void evaluate(CSEMachine cseMachine) {
         cseMachine.getStack().remove(1);

@@ -8,9 +8,14 @@ import java.util.Arrays;
 
 public class AndStandardizer extends   Standardizer{
 
-    //                      =
-    //          ,                       tau
-    //++X->n->child[*][0]       ++E => n->child[*][1]
+    /**
+     *                       =
+     *               ,                       tau
+     *     ++X->n->child[*][0]       ++E => n->child[*][1]
+     * @param n
+     * @param standardizedTree
+     */
+
 
     @Override
     public void standardize(STNode n, StandardizedTree standardizedTree) {

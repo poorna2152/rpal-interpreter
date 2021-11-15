@@ -1,8 +1,6 @@
 package definitions;
 
 import cse.CSEMachine;
-import cse.node.IdentifierNode;
-import cse.node.SymbolNode;
 
 public class OperationHandler {
     private static OperationHandler instance = null;
@@ -15,6 +13,11 @@ public class OperationHandler {
         this.initializeSymbolOperators();
     }
 
+    /**
+     * Get a instance of a singleton class
+     * @return
+     */
+
     public static OperationHandler getInstance(){
         if(instance == null){
             instance = new OperationHandler();
@@ -22,6 +25,9 @@ public class OperationHandler {
         return instance;
     }
 
+    /**
+     * Initialize the integer , string, truth value and tuple operations
+     */
     public void initializeSymbolOperators(){
         IntegerOperations integerOperations = new IntegerOperations();
         StringOperators stringOperators = new StringOperators();
@@ -35,6 +41,9 @@ public class OperationHandler {
 
     }
 
+    /**
+     * Initialize the IDENTIFIER operations. operations with a <ID: tag
+     */
     public void initializeIdentifierOperators(){
         TypeIdentificationOperators typeIdentificationOperators = new TypeIdentificationOperators();
         DefinedOperations definedOperations = new DefinedOperations();
@@ -48,10 +57,17 @@ public class OperationHandler {
 
     }
 
+    /**
+     * Handle integer, string,tuple and truthvalue operations
+     */
     public void operateSymbol(String label, CSEMachine machine){
         this.symbolOperations.handleOperation(label,machine);
     }
 
+
+    /**
+     * Handle defined operations
+     */
     public void operateDefined(String label, CSEMachine machine){
         this.identifierOperations.handleOperation(label,machine);
 

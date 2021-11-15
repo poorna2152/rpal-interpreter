@@ -8,9 +8,15 @@ import java.util.Arrays;
 
 public class WhereStandardizer extends Standardizer{
 
-    //                                  n -> gamma
-    //                          lambda                  E = n->child[1]->child[1]
-    //X = n->child[1]->child[0]     P = n->child[0]
+    /***
+     *     Generate the following structure
+     *                          n -> gamma
+     *                  lambda                  E = n->child[1]->child[1]
+     *     X = n->child[1]->child[0]     P = n->child[0]
+     * @param n
+     * @param standardizedTree
+     */
+
 
     @Override
     public void standardize(STNode n, StandardizedTree standardizedTree) {

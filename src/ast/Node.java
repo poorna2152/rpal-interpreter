@@ -1,17 +1,11 @@
 package ast;
 
-import java.util.ArrayList;
-
 public class Node {
     private String name;
     private int parentIndex;
     private int height;
     private int index;
-    private ArrayList<Integer> childrenIndexes = new ArrayList<>();
 
-    public int getIndex() {
-        return index;
-    }
 
     public Node(String name, int height, int index, int parentIndex) {
         this.name = name;
@@ -20,22 +14,35 @@ public class Node {
         this.index = index;
     }
 
+    /***
+     * Index within the ArrayList of nodes in the same height of the AST.
+     * @return index
+     */
+    public int getIndex() {
+        return index;
+    }
+
+    /***
+     * height of the node (Index of the main ArrayList)
+     * @return
+     */
     public int getHeight() {
         return height;
     }
+
+    /***
+     *
+     * @return Label attached with the node
+     */
 
     public String getName() {
         return name;
     }
 
-    public void setChildrenIndexes(int childrenIndex) {
-        this.childrenIndexes.add(childrenIndex);
-    }
-
-    public ArrayList<Integer> getChildrenIndexes() {
-        return childrenIndexes;
-    }
-
+    /***
+     *
+     * @return Index of the parent node in the ArrayList of nodes before the current height
+     */
     public int getParentIndex() {
         return parentIndex;
     }

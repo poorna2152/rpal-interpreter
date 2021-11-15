@@ -21,6 +21,12 @@ public class ConditionalNode implements CSENode {
         this.elseControls = elseControls;
     }
 
+    /***
+     *
+     * Remove the first element of the stack and check if it is true or false.
+     * If true add thenControls to controlStructure
+     * @param cseMachine
+     */
     @Override
     public void evaluate(CSEMachine cseMachine) {
         BooleanNode boolResult = (BooleanNode) cseMachine.getStack().remove(0);
@@ -36,9 +42,6 @@ public class ConditionalNode implements CSENode {
 
     @Override
     public String toString() {
-        return "ConditionalNode{" +
-                "thenControls=" + thenControls +
-                ", elseControls=" + elseControls +
-                '}';
+        return "ConditionalNode";
     }
 }

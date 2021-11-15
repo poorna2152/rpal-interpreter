@@ -7,6 +7,13 @@ import standardize.STNode;
 import java.util.ArrayList;
 
 public class TauHandler extends Handler {
+    /***
+     * Add a TauNode to current control structure
+     * @param node
+     * @param traverser
+     * @param stack
+     * @param index
+     */
     @Override
     public void handle(STNode node, PreOrderTraverser traverser, ArrayList<STNode> stack, int index) {
         if(node.getLabel().equals("tau")){

@@ -10,6 +10,6 @@ public class DummyNode implements CSENode {
 
     @Override
     public String toString() {
-        return "DummyNode{}";
+        return "DummyNode";
     }
 }

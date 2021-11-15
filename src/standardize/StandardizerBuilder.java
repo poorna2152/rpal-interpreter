@@ -3,6 +3,11 @@ package standardize;
 import standardize.standardizer.*;
 
 public class StandardizerBuilder {
+
+    /**
+     * Build the standardizer chain
+     * @return
+     */
     public Standardizer buildStandardizer(){
         AndStandardizer andStandardizer = new AndStandardizer();
         AtStandardizer atStandardizer = new AtStandardizer();
